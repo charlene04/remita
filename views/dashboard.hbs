@@ -1,181 +1,226 @@
-<body>
-    <section id="popup">
-        <article>
-            <form action="/products" method="POST" id="addProduct">
-                <h1 class="text-center">New Product</h1>
-                <br>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="name" placeholder="Enter product name"
-                                id="name" required>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <input type="number" class="form-control" name="price" placeholder="Enter price" id="price"
-                                required>
-                        </div>
+{{> sidebar }}
+<section id="popup">
+    <article>
+        <form action="/admin/products" method="POST" id="addProduct" enctype="multipart/form-data">
+            <h1 class="text-center">New Product</h1>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Enter product name" id="name"
+                            required>
                     </div>
                 </div>
-
-
-                <div class="form-group">
-                    <textarea name="description" id="desc" class="w-100" rows="2" placeholder="Product description"
-                        required></textarea>
-                </div>
-                <div class="form-group">
-                    <select class="browser-default custom-select" id="cat" name="category" required>
-                        <option>Select a product category</option>
-                        {{#each categories as |category|}}
-                        <option value="{{lookup category 'category'}}">{{lookup ../category @index}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <input type="number" name="discount" class="form-control" placeholder="Discount (Optional)"
-                                id="discount">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <input type="file" accept=".png, .jpg, .jpeg" class="form-control"
-                                placeholder="Upload an image of the product" id="img" name="image" required>
-                        </div>
+                <div class="col">
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="price" placeholder="Enter price" id="price"
+                            required>
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-
-            </form>
-
-
-            <form id="editProduct">
-                <h1 class="text-center">Edit Product</h1>
-                <br>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="name">Product name:</label>
-                            <input type="text" class="form-control" placeholder="Enter product name" id="Editname"
-                                required>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="price">Price:</label>
-                            <input type="number" class="form-control" placeholder="Enter price" id="Editprice" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="desc">Description:</label>
-                    <textarea name="desc" id="Editdesc" class="w-100" rows="2" required></textarea>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="discount">Discount:</label>
-                            <input type="number" class="form-control" placeholder="Optional" id="Editdiscount">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="img">Product image:</label>
-                            <input type="file" accept=".png, .jpg, .jpeg" class="form-control"
-                                placeholder="Upload an image of the product" id="Editimg" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="cat">Product Category:</label>
-                    <select class="browser-default custom-select" id="Editcat" required>
-                        {{#each categories}}
-                        <option>{{this.category.category}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <br>
-                <p id="response"></p>
-            </form>
-        </article>
-    </section>
-
-    <main class="container mt-70">
-        <div class="input-group flex-end">
-            <input type="text" name="category" id="categoryy" required>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" onclick="addCategory()">Add
-                    category</button>
             </div>
+
+
+            <div class="form-group">
+                <textarea name="description" id="desc" class="w-100" rows="2" placeholder="Product description"
+                    required></textarea>
+            </div>
+            <div class="form-group">
+                <select class="browser-default custom-select" id="cat" name="category" required>
+                    <option>Select a product category</option>
+                    {{#each categories as |category|}}
+                    <option value="{{ category.category }}">{{ category.category }}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <input type="number" name="discount" class="form-control" placeholder="Discount (Optional)"
+                            id="discount">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <input type="file" accept=".png, .jpg, .jpeg" class="form-control"
+                            placeholder="Upload an image of the product" id="img" name="image" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+
+
+        <form id="editProduct" method="POST" enctype="application/json">
+            <h1 class="text-center">Edit Product</h1>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name">Product name:</label>
+                        <input name="name" type="text" class="form-control" placeholder="Enter product name"
+                            id="Editname">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input name="price" type="number" class="form-control" placeholder="Enter price" id="Editprice">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="discount">Discount:</label>
+                        <input name="discount" type="number" class="form-control" placeholder="Optional"
+                            id="Editdiscount">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="cat">Product Category:</label>
+                        <select class="browser-default custom-select" id="Editcat" name="category">
+                            <option>Select a product category</option>
+                            {{#each categories as |category|}}
+                            <option>{{ category.category }}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="desc">Description:</label>
+                <textarea name="description" id="Editdesc" class="w-100" rows="2" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+            <p id="response"></p>
+        </form>
+
+
+        <form id="addCoupon" method="POST" action="/admin/products/coupon" enctype="application/json">
+            <h1 class="text-center">Add Coupon</h1>
+            <br>
+            <div class="form-group">
+                <label for="name"> Coupon Code</label>
+                <input name="coupon" type="text" class="form-control" placeholder="HAPPYHOLIDAYS">
+            </div>
+            <div class="form-group">
+                <label for="price">Coupon Value</label>
+                <input name="value" type="number" class="form-control" placeholder="20000">
+            </div>
+            <div class="form-group">
+                <label for="discount">Invalid after how many days?</label>
+                <input name="days" type="number" value="1" min="1" class="form-control" placeholder="1 (default)">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </article>
+</section>
+
+<main class="container mt-70">
+    <div class="input-group flex-end">
+        <input type="text" name="category" id="categoryy" required>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="addCategory()">Add
+                category</button>
         </div>
-        <br>
-        <table id="data" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-            <thead id="thead">
-                <tr>
-                    <th class="th-sm">Name
+    </div>
+    <br>
+    <table id="data" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+        <thead id="thead">
+            <tr>
+                <th class="th-sm">Name
 
-                    </th>
-                    <th class="th-sm">Description
+                </th>
+                <th class="th-sm">Description
 
-                    </th>
-                    <th class="th-sm">Product Category
+                </th>
+                <th class="th-sm">Product Category
 
-                    </th>
-                    <th class="th-sm">Price (&#8358;)
+                </th>
+                <th class="th-sm">Price (&#8358;)
 
-                    </th>
-                    <th class="th-sm">Discount Value (&#8358;)
+                </th>
+                <th class="th-sm">Discount (&#8358;)
 
-                    </th>
-                    <th class="th-sm">Actions
+                </th>
+                <th class="th-sm">Actions
 
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
 
-            </tbody>
-        </table>
-        <div class="text-right">
-            <button type="button" class="btn btn-sm btn-secondary" onclick="popup1()"><i class="fas fa-plus"></i> Add
-                product</button>
-        </div>
+            {{#each products}}
+            <tr>
+                <td onmouseover="hover(event)" onmouseout="hover2(event)" class="productName">{{this.name}}
+                    <img src="/uploads/{{this.image}}" class="preview" style="position: absolute;" alt="">
+                </td>
+                <td>{{this.description}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.discount}}</td>
+                <td>
+                    <i class="far fa-edit" onclick="editProduct(event, `{{this._id}}`)"></i>
+                    <i class="fas fa-trash-alt" id="bin" onclick="deleteProduct(event, `{{this._id}}`)"></i>
+                </td>
+            </tr>
+            {{/each}}
 
-    </main>
-    <form id="standby" method="POST"></form>
+        </tbody>
+    </table>
+    <div class="text-right">
+        <button class="btn btn-outline-secondary btn-sm" id="couponForm"><i class="fas fa-plus"></i> Add
+            Coupon</button>
+        <button type="button" class="btn btn-sm btn-primary" id="okpop"><i class="fas fa-plus"></i>
+            Add
+            product</button>
+    </div>
+
+</main>
+<form id="standby" method="POST"></form>
+<style>
+    footer {
+        bottom: 0;
+    }
+</style>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script src="index.js"></script>
-</body>
 
-</html>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-<!-- <script src="index.js"></script> -->
+
 <script>
+
+
+    function hover(e) {
+        e.target.children[0].style.visibility = 'visible'
+    }
+    function hover2(e) {
+        e.target.children[0].style.visibility = 'hidden'
+    }
+
+    let el = document.getElementById('popup')
+    let el1 = document.getElementById("addProduct")
+    let el2 = document.getElementById("editProduct")
+    let el3 = document.getElementById("addCoupon")
+    document.getElementById("okpop").addEventListener('click', function () {
+        el.style.display = 'flex';
+        el1.style.display = "block";
+        el2.style.display = "none";
+        el3.style.display = "none";
+    })
+
+    document.getElementById("couponForm").addEventListener('click', function () {
+        el.style.display = 'flex';
+        el1.style.display = "none";
+        el2.style.display = "none";
+        el3.style.display = "block";
+    })
 
     function addCategory() {
         var input = $('#categoryy').val()
@@ -188,7 +233,7 @@
         input1.value = input
         input1.type = "hidden"
         form.appendChild(input1)
-        form.action = "/products/category"
+        form.action = "/admin/products/category"
         form.submit()
 
 
@@ -198,59 +243,9 @@
 
 
 
-    // $(document).ready(function(){
-    function returnProducts() {
-        let products;
-        if (localStorage.getItem('products') === null) {
-            products = [];
-        } else {
-            products = JSON.parse(localStorage.getItem("products"));
-        }
-        products.forEach(function (product, i) {
-            var documentFragment = document.createDocumentFragment()
-            var tr = document.createElement('tr')
-            documentFragment.appendChild(tr)
-            var td1 = document.createElement('td')
-            td1.innerText = product.name;
-            var td2 = document.createElement('td')
-            td2.innerText = product.desc;
-            var td3 = document.createElement('td')
-            td3.innerText = product.category;
-            var td4 = document.createElement('td')
-            td4.innerText = product.price;
-            var td5 = document.createElement('td')
-            td5.innerText = product.discount;
-            var td6 = document.createElement('td')
-            var i1 = document.createElement('i')
-            var i2 = document.createElement('i')
-            i1.setAttribute("class", "far fa-edit");
-            i1.setAttribute("onclick", "editProduct(event)");
-            i2.setAttribute("class", "fas fa-trash-alt");
-            i2.setAttribute("id", "bin");
-            i2.setAttribute("onclick", "deleteProduct(event)");
-            td6.appendChild(i1)
-            td6.appendChild(i2)
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tr.appendChild(td3)
-            tr.appendChild(td4)
-            tr.appendChild(td5)
-            tr.appendChild(td6)
-            document.getElementById("tbody").appendChild(documentFragment)
-        })
-    }
-    returnProducts()
-
-
-
-
-
-
-
-
 
     $('#data').after('<div id="nav"></div>');
-    var rowsShown = 4;
+    var rowsShown = 15;
     var rowsTotal = $('#data tbody tr').length;
     var numPages = rowsTotal / rowsShown;
     for (i = 0; i < numPages; i++) {
@@ -271,23 +266,38 @@
             css('display', 'table-row').animate({ opacity: 1 }, 300);
     });
 
-    // })
 
-    let el = document.getElementById('popup')
-    let el1 = document.getElementById("addProduct")
-    let el2 = document.getElementById("editProduct")
-    function popup1() {
-        el.style.display = 'flex';
-        el1.style.display = "block";
-        el2.style.display = "none"
 
-    }
-    function editProduct(e) {
+
+
+
+    function editProduct(e, id) {
         el.style.display = 'flex';
         el1.style.display = "none";
-        el2.style.display = "block"
-        returnProductFromLocalStorage(e.target.parentElement.parentElement);
-        returnCategories1()
+        el2.style.display = "block";
+        el3.style.display = "none";
+        document.getElementById('editProduct').setAttribute('action', `/admin/products/${id}?_method=PATCH`)
+        $.ajax({
+            url: `/admin/products/${id}`,
+            data: { id: id },
+            dataType: 'json',
+            type: 'GET',
+            enctype: 'multipart/form-data',
+            error: function () {
+                console.log("Something went wrong")
+            },
+            success: function (data) {
+                document.getElementById("Editdiscount").value = data.data.product[0].discount
+                document.getElementById("Editname").value = data.data.product[0].name
+                document.getElementById("Editdesc").value = data.data.product[0].description
+                document.getElementById("Editcat").value = data.data.product[0].category
+                document.getElementById("Editprice").value = data.data.product[0].price
+
+
+            },
+
+        });
+
     }
 
     el.addEventListener('click', function (event) {
@@ -299,39 +309,24 @@
 
 
 
-    function deleteProduct(e) {
+    function deleteProduct(e, id) {
         e.target.parentElement.parentElement.remove();
-        deleteProductFromLocalStorage(e.target.parentElement.parentElement);
+        $.ajax({
+            url: `/admin/products/${id}`,
+            data: { id },
+            dataType: 'json',
+            type: 'DELETE',
+            enctype: 'multipart/form-data',
+            error: function () {
+                console.log("Something went wrong")
+            },
+            success: function () {
+                console.log("Successfully deleted")
+            },
+
+        });
+        console.log("yh")
 
     }
 
-
-
-    function returnProductFromLocalStorage(item) {
-        let products;
-        if (localStorage.getItem('products') === null) {
-            products = [];
-        } else {
-            products = JSON.parse(localStorage.getItem("products"));
-        }
-        let result = []
-        products.forEach(function (product, index) {
-            if (item.firstElementChild.textContent === product.name) {
-                product["index"] = index
-                result.push(product)
-            }
-        })
-
-        document.getElementById("Editname").setAttribute("index", result[0].index)
-        document.getElementById("Editname").value = result[0].name
-        document.getElementById("Editdesc").value = result[0].desc
-        document.getElementById("Editcat").value = result[0].category
-        document.getElementById("Editimg").value = result[0].img
-        document.getElementById("Editprice").value = result[0].price
-        document.getElementById("Editdiscount").value = result[0].discount
-
-    }
 </script>
-</body>
-
-</html>

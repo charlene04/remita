@@ -9,7 +9,8 @@ const DB = process.env.DATABASE_LOCAL
 mongoose.connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 }).then(con => {
     console.log("DB connecton successful!")
 }).catch(err => {

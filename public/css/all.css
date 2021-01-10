@@ -1,0 +1,138 @@
+*{
+    font-size: small!important;
+    font-family: "Poppins";
+}
+h2{
+    font-size: 20px!important;
+}
+body div#first{
+    height: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+#data tr{
+    display: none;
+}
+#thead tr{display:table-row;}
+#data tr td:last-child{
+    display: flex;
+    justify-content: space-around;
+}
+#popup{margin-top: -70px;display: none; justify-content: center; align-items: center; position: absolute; width: 100vw; height: 100vh; background-color: #000000ab; z-index: 1030;}
+#popup article{width: 50%; background-color: #fff; border-radius: 10px; padding: 25px;}
+.flex-end{display: flex;justify-content: flex-end;}
+.flex-end input{padding: 0 5px;}
+.fa-edit, .fa-trash-alt{cursor: pointer;}
+textarea{padding: 5px; font-size: small; border: 0.4px solid #e5e5e5; padding: 5px 10px; outline: none;}
+.mt-70{
+    margin-top: 70px;
+}
+#popup article input{
+    padding: 15px 10px;
+}
+
+/* For Cart */
+.cart-header{
+    height: 40px;
+    background-color: blue;
+}
+.header-text{
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* For cart */
+#cart-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-left: 20px;
+}
+#cart-top div{
+    position: absolute;
+}
+#cart-top div i{
+    font-size: 25px!important;
+    position: absolute;
+    
+}
+#cart-top div p{
+    color: white;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    margin-top: -10px;
+    margin-left: 13px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.preview{
+    height: 200px;
+    width: 200px;
+    border-radius: 20px;
+    left: 30px;
+    visibility: hidden;
+    z-index: 2;
+}
+div#section{
+    border: 2px solid #42586e;
+    padding: 20px;
+    margin: 0 0 20px 0;
+}
+
+
+/* Sidebar */
+.sidebar{
+    width: 20%;
+    background-color: #42586e;
+    position: fixed;
+    z-index: 1030;
+    height: 100vh;
+    color: #fff;
+    display: none;
+    transform: linear 5s ease-out;
+}
+.openbtw.dashboard{
+    margin-top: 30px;
+    font-size: medium!important;
+}
+.openbtw.dashboard i.fa-times{
+    cursor: pointer;
+    font-size: 20px!important;
+}
+.admin-options p{
+    padding: 15px 20px;
+    font-size: medium!important;
+}
+.admin-options p:hover{
+    background-color: #e3d4af;
+    color: black;
+    cursor: pointer;
+}
+.whitish{
+    border: 1px solid #e5e5e5;
+}
+.open-sidebar{
+    position: fixed;
+    margin-top: 45vh;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: #42586e;
+    height: 40px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.open-sidebar i{
+    font-size: 18px!important;
+    color: #fff;
+}

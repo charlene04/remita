@@ -21,7 +21,7 @@ exports.createReview = async (req, res) => {
     product.reviews.push(review)
     product.save()
     req.flash("success", "Your review was recorded successfully")
-    res.redirect(`/products/${req.params.id}`)
+    res.redirect(`/admin/products/${req.params.id}`)
 }
 exports.deleteReview = (req, res) => {
     res.send("delete review route!")

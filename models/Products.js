@@ -17,8 +17,8 @@ const productSchema = new mongoose.Schema({
         type: Number, 
         default: 0},
     image: {
-        type: String,
-        required: [true, 'Image is required for a new product']
+        type: String
+        // required: [true, 'Image is required for a new product']
     },
     reviews: [
         {
@@ -26,11 +26,7 @@ const productSchema = new mongoose.Schema({
             ref: "Review"
         }
     ],
-    category: 
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Category"
-        }
+    category: String
     
 })
 
