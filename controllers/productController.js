@@ -22,13 +22,13 @@ exports.getOneProduct = async (req, res) => {
 }
 
 exports.updateProduct = async (req, res) => {
-    const updatedProduct = await Product.findByIdAndUpdate({_id: req.params.id}, req.fields, {new: true})
+    const updatedProduct = await Product.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true})
     if(updatedProduct){
         req.flash("success", "Product updated successfully")
         res.redirect("/admin/products")
     }else{
         req.flash("error", "Something went wrong")
-        res.redirect("/admin/products")
+        res.redirect("back")
     }
     
 }
@@ -37,7 +37,6 @@ exports.updateProduct = async (req, res) => {
 exports.createProduct = async (req, res) => {
     const {name, price, discount, description, category } = req.fields
     if (!name || !price || !category || !description ){
-        console.log("some")
         req.flash("error", "Please provide all necessary fields");
         return res.redirect("/admin/products")
     }
@@ -52,7 +51,7 @@ exports.createProduct = async (req, res) => {
                     category,
                     image:patth[patth.length - 1]
                 })
-          
+    req.flash("success", "New Product added successfully")
     res.redirect("/admin/products")
 }
 
@@ -69,14 +68,14 @@ exports.deleteProduct = async (req, res) => {
 
 exports.addCategory = async (req, res) => {
     const cat = await Category.create({
-        category: req.fields.category
+        category: req.body.category
     })
     req.flash("success", "Product category added successfully")
     res.redirect("/admin/products")
 }
 
 exports.addCoupon = async (req, res, next) => {
-    const {value, coupon, days } = req.fields
+    const {value, coupon, days } = req.body
     if(!value || !coupon || !days){
         req.flash("error", "Provide the necessary fields")
         return res.redirect("/admin/products")

@@ -24,7 +24,15 @@ exports.updateCartPayment = async (req, res) => {
 }
 
 exports.updateCartCustomerInfo = async (req, res) => {
-    const cart = await Cart.findByIdAndUpdate(req.params.id, {$set: {customerInfo: true}}, {new: true})
+    const { firstName, lastName, phone, address, email} = req.body
+    const update = {
+        customerAddress: address,
+        customerEmail: email,
+        customerName: firstName + " " + lastName,
+        customerTel: phone,
+        customerInfo: true
+    }
+    const cart = await Cart.findByIdAndUpdate(req.params.id, {update}, {new: true})
     if(cart){
         return res.redirect(`/carts/${cart._id}`)
     }
@@ -43,21 +51,23 @@ exports.createCart = async (req, res) => {
     let total = 0;
     let discount = 0;
     let cart = []
-    data.forEach( async element => {
+    let promises = data.map( async element => {
         const item = await Product.findById({_id: element.id})
-        total += item.price
-        discount += item.discount
-        const result = {name: item.name, quantity: element.quantity, sum: item.price * element.quantity}
+        total += item.price * element.quantity
+        discount += item.discount * element.quantity
+        let result = {name: item.name, quantity: element.quantity, sum: item.price * element.quantity}
         cart.push(result)
-    });
+    })
+   
+    Promise.all(promises).then( async ()=>{
+
+    
     const newCart = await Cart.create({
-        customerName: req.user.name,
-        customerEmail: req.user.email,
         token,
         total: total,
         discount: discount,
     })
-    newCart.products.concat(cart)
+    newCart.products = cart
     const updatedCart = await newCart.save()
     if(!updatedCart){
         req.flash("error", "Something went wrong")
@@ -65,6 +75,7 @@ exports.createCart = async (req, res) => {
     }
     req.flash("success", "Few more steps to finalise your purchases")
     res.redirect(`/carts/${updatedCart._id}`)
+ })
     
 }
 

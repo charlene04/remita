@@ -1,7 +1,50 @@
+{{> nav }}
 {{> sidebar }}
+<section id="popup">
+    <article>
+        <form id="editUser" method="POST">
+            <h1 class="text-center">Edit User</h1>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input name="name" type="text" class="form-control" id="editName" disabled>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input name="email" type="email" id="editEmail" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input name="location" type="text" id="editLocation" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select class="browser-default custom-select" id="editRole" name="role">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+        </form>
+    </article>
+</section>
 <main class="container mt-70">
     <div class="flex-end">
-        <input type="text" name="filter" placeholder="Filter by name or location" class="filter">
+        <input type="text" name="filter" placeholder="Filter by name | location | email" class="filter"
+            onkeyup="taskFilter()">
     </div>
     <br>
     <table id="data" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
@@ -16,6 +59,9 @@
                 <th class="th-sm">Location
 
                 </th>
+                <th class="th-sm">Role
+
+                </th>
                 <th class="th-sm">Registered
 
                 </th>
@@ -27,16 +73,16 @@
         <tbody id="tbody">
 
             {{#each users}}
-            <tr>
+            <tr class="user-row">
                 <td>{{this.name}} </td>
                 <td>{{this.email}}</td>
                 <td>{{this.location}}</td>
+                <td>{{this.role}}</td>
                 <td>{{this.joined}}</td>
-                <td>yes</td>
-                {{!-- <td>
-                    <i class="far fa-edit" onclick="editProduct(event, `{{this._id}}`)"></i>
-                    <i class="fas fa-trash-alt" id="bin" onclick="deleteProduct(event, `{{this._id}}`)"></i>
-                </td> --}}
+                <td>
+                    <i class="far fa-edit" onclick="editUser(event, `{{this._id}}`)"></i>
+                    <i class="fas fa-trash-alt" id="bin" ondblclick="deleteUser(event, `{{this._id}}`)"></i>
+                </td>
             </tr>
             {{/each}}
 
@@ -45,12 +91,63 @@
 
 
 </main>
-
+{{> footer }}
 
 <script>
+    let el = document.getElementById('popup')
+    let el2 = document.getElementById("editUser")
+    function editUser(e, id) {
+        el.style.display = 'flex';
+        el2.style.display = "block";
+        document.getElementById('editUser').setAttribute('action', `/admin/users/${id}?_method=PATCH`)
+        $.ajax({
+            url: `/admin/users/${id}`,
+            data: { id: id },
+            dataType: 'json',
+            type: 'GET',
+            enctype: 'multipart/form-data',
+            error: function () {
+                console.log("Something went wrong")
+            },
+            success: function (data) {
+                document.getElementById("editName").value = data.data.user[0].name
+                document.getElementById("editLocation").value = data.data.user[0].location
+                document.getElementById("editEmail").value = data.data.user[0].email
+                document.getElementById("editRole").value = data.data.user[0].role
+
+
+            },
+
+        });
+    }
+
+    function deleteUser(e, id) {
+        e.target.parentElement.parentElement.remove()
+        $.ajax({
+            url: `/admin/users/${id}`,
+            type: 'DELETE',
+            dataType: 'json'
+        })
+    }
 
 
 
+    function taskFilter() {
+        const filter = document.getElementsByClassName("filter")[0].value.toLowerCase();
+        const users = document.querySelectorAll(".user-row");
+        users.forEach(function (user) {
+            let name = user.children[0].textContent.toLowerCase();
+            let location = user.children[2].textContent.toLowerCase();
+            let email = user.children[1].textContent.toLowerCase();
+            if (name.indexOf(filter) != -1 || location.indexOf(filter) != -1 || email.indexOf(filter) != -1) {
+                user.style.display = "table-row";
+            } else {
+                user.style.display = "none";
+            }
+
+        })
+
+    }
 
 
 

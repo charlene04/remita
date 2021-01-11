@@ -1,14 +1,12 @@
 const mongoose = require('mongoose')
+const dateFormat = require('dateformat')
+
 
 const cartSchema = new mongoose.Schema({
-    customerName: {
-        type: String,
-        required: [true, 'Customer name is required']
-    },
-    customerEmail: {
-        type: String, 
-        required: [true, 'Customer email is required']
-    },
+    customerName: String,
+    customerEmail: String,
+    customerAddress: String,
+    customerTel: String,
     token: {
         type: String,
         required: [true, 'A token is required']
@@ -28,10 +26,19 @@ const cartSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    paid: {
+    paymentStatus: {
         type: Boolean,
         default: false
-    }
+    },
+    deliveryStatus: {
+        type: String,
+        enum: ["Pending", "Delivered", "Cancelled"],
+        default: "Pending"
+    },
+    date:{
+        type: String,
+        default: dateFormat(Date.now(), 'fullDate')
+    },
 
 })
 

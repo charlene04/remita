@@ -136,3 +136,14 @@ div#section{
     font-size: 18px!important;
     color: #fff;
 }
+#special-input-group{
+    width: 50%;
+}
+
+.single-row{
+    margin-top: 60px; 
+    z-index: 1030; 
+    position:fixed; 
+    width:100%; 
+    cursor:pointer;
+}

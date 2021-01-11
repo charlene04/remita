@@ -5,12 +5,12 @@ const app = require('./app')
 
 // const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD)
 const DB = process.env.DATABASE_LOCAL
-
+mongoose.set('debug', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useFindAndModify', false);
 mongoose.connect(DB, {
-    useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
+    useNewUrlParser: true
 }).then(con => {
     console.log("DB connecton successful!")
 }).catch(err => {

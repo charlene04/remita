@@ -1,25 +1,28 @@
 <div class="body">
-<img src="https://res.cloudinary.com/charlene04/image/upload/v1586549256/CampusTutor/logo_twsqug.png" alt="">
-<div class="contains">
-    <div class="text">
-        <h2> DevCamp Stores</h2>
-        <p>Registering an account gives you access to sweet promos and 
-            events available to only registered Customers.</p>
-        <p>You do not have an account with us?</p>
-            <button type="submit" id="button">Register</button><br>
-    </div>
-    <div class="form">
-        <form action="">
-            <h2>Log in</h2>
-            <input type="text" placeholder="Email"><br>
-            <input type="text" placeholder="Password"><br>
-            <button type="submit" id="button">Log in</button><br>
-        </form>
+    <a href="#!"><img class="logo"
+            src="https://res.cloudinary.com/charlene04/image/upload/v1586549256/CampusTutor/logo_twsqug.png" alt=""></a>
+    <div class="contains">
+        <div class="text">
+            <div>
+                <h2> DevCamp Stores</h2>
+                <p>Registering an account gives you access to sweet promos and
+                    events available to only registered Customers.</p>
+                <p>You do not have an account with us?</p>
+                <button type="submit" id="button" onclick="register()">Register</button><br>
+            </div>
+        </div>
+        <div class="form">
+            <form action="/auth/login" method="POST">
+                <h2>Log in</h2>
+                <input type="email" placeholder="Email" name="username" required><br>
+                <input type="password" placeholder="Password" name="password" required><br>
+                <button type="submit" id="button">Log in</button><br>
+            </form>
             <a href=""><i class="fab fa-facebook-f"></i></a>
             <a href=""><i class="fas fa-envelope"></i></a>
             <a href=""><i class="fab fa-twitter"></i></a>
-        <p></p>
+            <p></p>
+        </div>
     </div>
-</div>
-    
+
 </div>

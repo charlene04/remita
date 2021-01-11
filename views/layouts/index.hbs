@@ -22,85 +22,32 @@
 
 <body>
     <div id="first">
-        <nav class="navbar navbar-expand-md navbar-light scrolling-navbar bg-light fixed-top" style="min-height: 60px">
-            <div class="container">
-                <div class="brand-header">
-                    <a class="navbar-brand" href="/" style="align-items: center;">
-                        <img src="https://res.cloudinary.com/charlene04/image/upload/v1586549256/CampusTutor/logo_twsqug.png"
-                            class="mr-2" width="35" height="35" alt="logo">
-                        <span style="color: black;">DevCamp</span><span style="color: #c81414;">Stores</span>
-                    </a>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mr-1" onclick="signupShow()">
-                            <a class="nav-link" href="#signup">Signup</a>
-                        </li>
-                        <li class="nav-item mr-1" onclick="loginShow()">
-                            <a class="nav-link" href="#login">Login</a>
-                        </li>
-                        <li class="nav-item mr-1 cart-top" id="cart-top">
-                            <div>
-                                <i class="fas fa-shopping-cart"></i>
-                                <p>30</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+
+        {{#if error }}
+        {{#if error.length }}
+        <div class="alert alert-danger single-row" role="alert">
+            <span>
+                {{error}}
+            </span>
+            {{!-- <i class="fas fa-times-circle float-right py-2" style="font-size: 18px;"></i> --}}
+        </div>
+        {{/if}}
+        {{/if}}
+        {{#if success }}
+        {{#if success.length }}
+        <div class="alert alert-success single-row" role="alert">
+            <span>
+                {{success}}
+            </span>
+            {{!-- <i class="fas fa-times-circle float-right py-2" style="font-size: 18px;"
+                onclick="alertHide(event)"></i> --}}
+        </div>
+        {{/if}}
+        {{/if}}
 
         {{{ body }}}
 
 
-        <footer class="bg-light text-center text-lg-start" style="margin-top:80px;
-    
-    width: 100%;">
-            <!-- Grid container -->
-            <div class="container p-4 pb-0">
-                <form action="">
-                    <!--Grid row-->
-                    <div class="row">
-                        <!--Grid column-->
-                        <div class="col-md-4 mb-4 mb-md-0">
-                            <p class="pt-2"><strong>Sign up for our newsletter</strong></p>
-                        </div>
-                        <!--Grid column-->
-
-                        <!--Grid column-->
-                        <div class="col-md-6 col-12 mb-4 mb-md-0">
-                            <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <input type="email" id="form5Example2" class="form-control" />
-                                <label class="form-label" for="form5Example2">Email address</label>
-                            </div>
-                        </div>
-                        <!--Grid column-->
-
-                        <!--Grid column-->
-                        <div class="col-md-2 mb-4 mb-md-0">
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-primary mb-4">Subscribe</button>
-                        </div>
-                        <!--Grid column-->
-                    </div>
-                    <!--Grid row-->
-                </form>
-            </div>
-            <!-- Grid container -->
-
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-                © 2020 Copyright:
-                <a class="text-dark" href="#">4FunWithPride.com</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
     </div>
 
 
