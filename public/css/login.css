@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap');
+
+.body{
+    background-image: linear-gradient(to right, #E3D4AF 60%, #42586E 40%); 
+    padding:0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    FONT-SIZE: small !important;
+}
+.contains{
+    margin: 150px 0;
+    display: flex;
+}
+.text{
+    padding-top:90px ;
+    width: 600px;
+    padding-left: 70px;
+    text-align: center;
+}
+.text h2{
+    font-family: 'Raleway', sans-serif;
+    text-align: left;
+    font-size: 40px;
+    font-weight: 900;
+    color: #42586E;
+}
+.text p{
+    font-size: 20px;
+}
+.text #button{
+    width: 190px;
+    height: 50px;
+    margin-top: 20px;
+    border-radius: 30px;
+    border: 0 solid rgba(0,0,0,0.19);
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}
+.form{
+    background-color:#304352;
+    border: 0px solid rgba(0,0,0,0.19);
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.19);
+    border-radius: 20px;
+    padding: 50px;
+    text-align: center;
+    margin-left: 150px;
+}
+.form input{
+    width: 300px;
+    height: 40px;
+    border: 0 solid rgba(0,0,0,0.19);
+    border-radius: 15px;
+    margin: 20px 50px;
+}
+.form input::placeholder{
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+}
+.form h2{
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color:white;
+}
+.form #button{
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: 0 solid rgba(0,0,0,0.19);
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+}
+#button:hover{
+    background-color: teal;
+}
+.form i{
+    color: teal;
+    margin: 20px 10px;
+    font-size: 25px;
+}
+
+.form i:hover{
+    color: white;
+}
