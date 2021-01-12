@@ -1,4 +1,6 @@
+{{> nav }}
 {{> sidebar }}
+
 <section id="popup">
     <article>
         <form action="/admin/products" method="POST" id="addProduct" enctype="multipart/form-data">
@@ -21,8 +23,8 @@
 
 
             <div class="form-group">
-                <textarea name="description" id="desc" class="w-100" rows="2" placeholder="Product description"
-                    required></textarea>
+                <textarea name="description" id="desc" class="w-100" maxlength="100" rows="2"
+                    placeholder="Product description" required></textarea>
             </div>
             <div class="form-group">
                 <select class="browser-default custom-select" id="cat" name="category" required>
@@ -53,7 +55,7 @@
         </form>
 
 
-        <form id="editProduct" method="POST" enctype="application/json">
+        <form id="editProduct" method="POST">
             <h1 class="text-center">Edit Product</h1>
             <br>
             <div class="row">
@@ -81,7 +83,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="cat">Product Category:</label>
+                        <label for="category">Product Category:</label>
                         <select class="browser-default custom-select" id="Editcat" name="category">
                             <option>Select a product category</option>
                             {{#each categories as |category|}}
@@ -94,7 +96,7 @@
 
             <div class="form-group">
                 <label for="desc">Description:</label>
-                <textarea name="description" id="Editdesc" class="w-100" rows="2" required></textarea>
+                <textarea name="description" id="Editdesc" class="w-100" maxlength="100" rows="2" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <br>
@@ -124,11 +126,16 @@
 </section>
 
 <main class="container mt-70">
-    <div class="input-group flex-end">
-        <input type="text" name="category" id="categoryy" required>
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" onclick="addCategory()">Add
-                category</button>
+    <div class="openbtw">
+        <div class="flex-start" id="filter-cont">
+            <input type="text" name="filter" placeholder="Filter by category" class="filter" onkeyup="taskFilter()">
+        </div>
+        <div class="input-group flex-end" id="special-input-group">
+            <input type="text" name="category" id="categoryy" required>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" onclick="addCategory()">Add
+                    category</button>
+            </div>
         </div>
     </div>
     <br>
@@ -136,9 +143,6 @@
         <thead id="thead">
             <tr>
                 <th class="th-sm">Name
-
-                </th>
-                <th class="th-sm">Description
 
                 </th>
                 <th class="th-sm">Product Category
@@ -158,17 +162,18 @@
         <tbody id="tbody">
 
             {{#each products}}
-            <tr>
-                <td onmouseover="hover(event)" onmouseout="hover2(event)" class="productName">{{this.name}}
+            <tr class="product-row">
+                <td class="productName"><a href="/shop/{{this._id}}">{{this.name}}</a>
                     <img src="/uploads/{{this.image}}" class="preview" style="position: absolute;" alt="">
+                    <i class="fas fa-images" onmouseover="hover(event)" onclick="fileUpload(event, `{{this._id}}`)"
+                        onmouseout="hover2(event)"></i>
                 </td>
-                <td>{{this.description}}</td>
                 <td>{{this.category}}</td>
                 <td>{{this.price}}</td>
                 <td>{{this.discount}}</td>
                 <td>
                     <i class="far fa-edit" onclick="editProduct(event, `{{this._id}}`)"></i>
-                    <i class="fas fa-trash-alt" id="bin" onclick="deleteProduct(event, `{{this._id}}`)"></i>
+                    <i class="fas fa-trash-alt" id="bin" ondblclick="deleteProduct(event, `{{this._id}}`)"></i>
                 </td>
             </tr>
             {{/each}}
@@ -185,9 +190,22 @@
 
 </main>
 <form id="standby" method="POST"></form>
+<form method="POST" enctype="multipart/form-data" id="standbyTwo">
+    <input type="file" name="image" id="standbyInput" onchange="fileSelected(event)">
+</form>
+
+{{> footer }}
 <style>
     footer {
         bottom: 0;
+    }
+
+    .filter {
+        width: 70%;
+    }
+
+    #filter-cont {
+        width: 40%;
     }
 </style>
 
@@ -196,12 +214,26 @@
 
 <script>
 
+    function taskFilter() {
+        const filter = document.getElementsByClassName("filter")[0].value.toLowerCase();
+        const products = document.querySelectorAll(".product-row");
+        products.forEach(function (product) {
+            let cat = product.children[1].textContent.toLowerCase();
+            if (cat.indexOf(filter) != -1) {
+                product.style.display = "table-row";
+            } else {
+                product.style.display = "none";
+            }
+
+        })
+
+    }
 
     function hover(e) {
-        e.target.children[0].style.visibility = 'visible'
+        e.target.parentElement.children[1].style.visibility = 'visible'
     }
     function hover2(e) {
-        e.target.children[0].style.visibility = 'hidden'
+        e.target.parentElement.children[1].style.visibility = 'hidden'
     }
 
     let el = document.getElementById('popup')
@@ -237,6 +269,17 @@
         form.submit()
 
 
+    }
+
+    function fileUpload(e, id) {
+        let input1 = document.getElementById("standbyInput")
+        let form = document.getElementById("standbyTwo")
+        form.setAttribute('action', `/admin/products/${id}/image`)
+        input1.click()
+    }
+
+    function fileSelected(e) {
+        document.getElementById("standbyTwo").submit()
     }
 
 
@@ -325,8 +368,8 @@
             },
 
         });
-        console.log("yh")
 
     }
+
 
 </script>

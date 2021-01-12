@@ -9,16 +9,15 @@ body div#first{
     height: 100%;
     min-height: 100vh;
     overflow-x: hidden;
+    width: 100%;
 }
-#data tr{
-    display: none;
-}
+
 #thead tr{display:table-row;}
 #data tr td:last-child{
     display: flex;
     justify-content: space-around;
 }
-#popup{margin-top: -70px;display: none; justify-content: center; align-items: center; position: absolute; width: 100vw; height: 100vh; background-color: #000000ab; z-index: 1030;}
+#popup{overflow-x: hidden;display: none; justify-content: center; align-items: center; position: fixed; width: 100%; height: 100vh; background-color: #000000ab; z-index: 1060;}
 #popup article{width: 50%; background-color: #fff; border-radius: 10px; padding: 25px;}
 .flex-end{display: flex;justify-content: flex-end;}
 .flex-end input{padding: 0 5px;}
@@ -71,6 +70,7 @@ textarea{padding: 5px; font-size: small; border: 0.4px solid #e5e5e5; padding: 5
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 10px!important
     
 }
 .preview{
@@ -81,8 +81,21 @@ textarea{padding: 5px; font-size: small; border: 0.4px solid #e5e5e5; padding: 5
     visibility: hidden;
     z-index: 2;
 }
+#standbyInput{
+    width: 0!important;
+    height: 0!important;
+    visibility: hidden;
+}
+.productName{
+    display: flex;
+    justify-content: space-between;
+}
+.productName i{
+    cursor: pointer;
+    margin-right: 15px;
+}
 div#section{
-    border: 2px solid #42586e;
+    border: 2px solid #42586e8c;
     padding: 20px;
     margin: 0 0 20px 0;
 }
@@ -135,4 +148,35 @@ div#section{
 .open-sidebar i{
     font-size: 18px!important;
     color: #fff;
+}
+#special-input-group{
+    width: 50%;
+}
+
+.single-row{
+    margin-top: 60px; 
+    z-index: 1030; 
+    position:fixed; 
+    width:100%; 
+    cursor:pointer;
+}
+
+
+/* successs popup */
+#success i{
+    font-size: 200px!important;
+    color: #42586e;
+}
+#success p{
+   font-weight: bold;
+}
+#success{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 350px;
+}
+
+.mt-40{
+    margin-top: 40px;
 }

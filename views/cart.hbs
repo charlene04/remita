@@ -1,4 +1,4 @@
-{{> sidebar }}
+{{> nav }}
 
 <section class="mt-70">
     <div class="container">
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="col-md-2 item-row query">
                                     <input type="number" value="1" min="1"
-                                        onchange="quantityChange(event, `{{name._id}}`)" style="width: 40px;"
+                                        onchange="quantityChange(event, `{{name._id}}`)" style="width: 60px;"
                                         class="text-center">
                                 </div>
                                 <div class="col-md-3 item-row">50000</div>
@@ -88,6 +88,7 @@
     <input type="hidden" name="stringArray">
 </form>
 <br><br><br><br><br><br>
+{{> footer }}
 <script>
 
 

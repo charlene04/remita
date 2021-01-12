@@ -1,0 +1,76 @@
+<footer class="page-footer font-small pt-5" style="background-color:#e6e9ec; margin-top: 80px; width:100%">
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+        <div class="row mt-3">
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <div class="brand-header">
+                    <a class="navbar-brand" href="/" style="align-items: center;">
+                        <img src="https://res.cloudinary.com/charlene04/image/upload/v1586549256/CampusTutor/logo_twsqug.png"
+                            class="mr-2" width="35" height="35" alt="logo">
+                        <span style="color: black;">DevCamp</span><span style="color: #c81414;">Stores</span>
+                    </a>
+                </div>
+
+                <p class="text-justify">Registering an account gives you access to sweet promos and
+                    events available to only registered Customers.
+                </p>
+            </div>
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+                    style="width: 60px; background: #cb2929">
+
+                {{#if currentUser }}
+                <p>
+                    <a href="#">Usage policy</a>
+                </p>
+                <p>
+                    <a href="#">FAQs</a>
+                </p>
+                {{else}}
+                <p>
+                    <a href="/auth/signup" onclick="signupShow()">Create an Account</a>
+                </p>
+                <p>
+                    <a href="/auth/login" onclick="loginShow()">Login</a>
+                </p>
+                <p>
+                    <a href="#">Usage policy</a>
+                </p>
+                <p>
+                    <a href="#">FAQs</a>
+                </p>
+                {{/if}}
+
+
+
+
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <h6 class="text-uppercase font-weight-bold">Contacts</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+                    style="width: 60px; background: #cb2929">
+                <p>
+                    <i class="fas fa-home mr-3"></i>Nigeria.
+                </p>
+                <p>
+                    <i class="fas fa-envelope mr-3"></i> <a
+                        href="mailto:contact.campustutor@gmail.com"></a>devcampstores@gmail.com
+                </p>
+                <p>
+                    <i class="fas fa-phone mr-3"></i> <a href="tel:+2348121304117"></a> +234(0)8121304117
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3 bg-dark text-white">© 2020 Copyright:
+        <a href="https://devcampstores.herokuapp.com">devcampstores.com</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->

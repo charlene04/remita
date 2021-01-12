@@ -9,60 +9,64 @@ const AppError = require("./../utils/AppError")
 
 exports.signup = async (req, res, next) =>{
     try{
-        const newUser = await User.create({
+        console.log(req.body)
+        const newUser = new User({
             name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
+            username: req.body.username,
             location: req.body.location
         })
-    
-        // const token = signToken(newUser._id) 
-        res.status(201).json({
-            status: "success",
-        
-            data: {
-                user: newUser
-            }
-        })
-    }catch{
-        console.log("ERROR")
+        const createdUser = await User.register(newUser, req.body.password)
+        return res.redirect("/auth/login")
+    }catch(err){
+        console.log(err)
+        req.flash("error", "Something went wrong!");
+        return res.redirect("back")
     }
     
 }
 
 
 exports.login = async (req, res, next) => {
-    const { email, password } = req.body;
-
-    if(!email || !password ){
-        return next(new AppError('Please provide email and password'), 400)
-    }
-    const user = await User.findOne({ email }).select('+password');
+    // const { password, username} = req.body;
+    // if(!username || !password ){
+    //     req.flash("error", "Invalid credentials!");
+    //     return res.redirect("/auth/login")
+    // }
+    // const user = await User.findOne({ username }).select('+password');
    
-    if(!user || !await user.correctPassword(password, user.password)){
-        return next(new AppError('Incorrect email or password'), 401)
-    }
-
-    // const token = signToken(user._id)
-    // res.status(200).json({
-    //     status: "success",
-    //     token
-    // })
-    const authenticatedUser = await passport.authenticate("local", {
-		failureRedirect: "/",
-		failureFlash: true,
-		successFlash: true}
-    )
-    if(authenticatedUser){
-        req.flash("success", "Successfully logged in as.");
-        res.status(200).json({
-            status: "success"
-        })
-    }else{
-        req.flash("error", "Something went wrong. Please try again.");
-        res.redirect("/login")
-    }
+    // if(!user || !await user.correctPassword(password, user.password)){
+    //     req.flash("error", "Invalid credentials!");
+    //     return res.redirect("back")
+    // }
+    
+    passport.authenticate('local', function (error, user, info) {
+        if (error) {
+            req.flash("error", "Invalid credentials");
+            return res.redirect("back")
+        } else if (!user) {
+            req.flash("error", "Invalid credentials");
+            return res.redirect("back")
+        } else {
+            req.login(user, (err) => {
+            if (err) {
+                    req.flash("error", "Something went wrong!");
+                    return res.redirect("back")
+                } else {
+                    req.flash("success", "Successfully logged In!");
+                    return res.redirect("/")
+                }
+            })
+        }
+      })(req, res, next);
 }
+
+
+exports.logout = async (req, res, next) => {
+    req.logout()
+    req.flash("success", "Logged out successfully");
+    res.redirect("/")
+}
+
 
 	
 
@@ -72,9 +76,9 @@ exports.login = async (req, res, next) => {
 
 
 exports.userLoginForm = (req, res) => {
-    res.send("Login route!")
+    res.render('login.hbs')
 }
 
 exports.userSignupForm = (req, res) => {
-    res.send("Signup route!")
+    res.render('Register.hbs')
 }

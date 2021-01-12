@@ -8,7 +8,8 @@ const couponSchema = new mongoose.Schema({
     value: {
         type: Number, 
         required: [true, 'Value cannot be empty']
-    }
+    },
+    applied: []
 
 })
 
