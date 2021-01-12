@@ -28,16 +28,18 @@ a, a:hover, a:visited, a:active, a:link
 }
 
 .slider{
-    background-image: url(../img/slider_1.jpg);
+    background-image: url(../images/slider_1.jpg);
+    background-position: center;
     height: 80vh;
-    width: 100%;
+    width: 100%
 }
 
 .slider-content{
     position: relative;
     top: 25vh;
-    padding-left: 25%;
+    padding-left: 15%;
 }
+
 
 .fill-height
 {
