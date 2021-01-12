@@ -40,6 +40,9 @@ a, a:hover, a:visited, a:active, a:link
     padding-left: 15%;
 }
 
+.slider-content h6{
+    font-size: x-large;
+}
 
 .fill-height
 {
