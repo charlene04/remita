@@ -50,10 +50,10 @@ exports.login = async (req, res, next) => {
             req.login(user, (err) => {
             if (err) {
                     req.flash("error", "Something went wrong!");
-                    return res.redirect("/auth/login")
+                    return res.redirect("back")
                 } else {
                     req.flash("success", "Successfully logged In!");
-                    return res.redirect("/admin/products")
+                    return res.redirect("/")
                 }
             })
         }
@@ -64,7 +64,7 @@ exports.login = async (req, res, next) => {
 exports.logout = async (req, res, next) => {
     req.logout()
     req.flash("success", "Logged out successfully");
-    res.redirect("/my-cart")
+    res.redirect("/")
 }
 
 
