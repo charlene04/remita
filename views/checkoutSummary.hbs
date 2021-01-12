@@ -1,5 +1,19 @@
 {{> nav }}
-{{> sidebar }}
+
+<section id="popup">
+    <article>
+        <div id="success">
+            <div class="text-center">
+                <i class="far fa-check-circle"></i><br>
+                <br>
+                <p>Thank you for shopping with us. <br> Tracking ID: {{#if cart}} {{cart.token}} {{/if}}</p>
+                <br><br>
+                <button class="btn btn-primary btn-lg" onclick="home()">Go To Home</button>
+            </div>
+        </div>
+    </article>
+</section>
+
 <section class="mt-70">
     <div class="container">
         <div class="row">
@@ -21,13 +35,16 @@
                             </tr>
                         </thead>
                         <tbody id="tbody">
+                            {{#if cart}}
+                            {{#each cart.products }}
                             <tr>
-                                <td>thisname
+                                <td>{{this.name}}
                                 </td>
-                                <td>this.description</td>
-                                <td>this.category</td>
+                                <td>{{this.quantity}}</td>
+                                <td>{{this.sum}}</td>
                             </tr>
-
+                            {{/each}}
+                            {{/if}}
                         </tbody>
                     </table>
                 </div>
@@ -35,8 +52,7 @@
 
                 <div id="section2">
 
-                    <form method="POST" enctype="application/json" class="container"
-                        action="/carts/{{cart._id}}?_method=PATCH">
+                    <form method="POST" class="container" id="infoForm">
                         <h1>Contact Information</h1>
 
                         <p><i class="fas fa-exclamation-circle"></i>
@@ -83,63 +99,109 @@
                     <div id="paymentImage"></div>
                     <hr>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Apply coupon code"
+                        <input type="text" class="form-control" placeholder="Apply coupon code here"
                             style="border: 1px solid #00000045;" aria-label="Apply coupon code"
-                            aria-describedby="basic-addon2">
+                            aria-describedby="basic-addon2" id="couponInput">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button">Apply</button>
+                            <button class="btn btn-outline-secondary" type="button"
+                                onclick="applyCoupon(`{{cart._id}}`)">Apply</button>
                         </div>
                     </div>
+                    <p id="response"></p>
                     <hr>
                     <div class="openbtw">
                         <p class="flex-start">Subtotal:</p>
-                        <p class="flex-end">&#8358; 300000</p>
+                        <p class="flex-end">&#8358; {{#if cart}}{{cart.total}}{{/if}}</p>
                     </div>
                     <div class="openbtw">
                         <p class="flex-start">Discount:</p>
-                        <p class="flex-end">&#8358; 3000</p>
+                        <p class="flex-end">&#8358; {{#if cart}}{{cart.discount}}{{/if}}</p>
                     </div>
                     <hr class="m-0">
                     <br>
                     <div class="openbtw container">
                         <h1 class="flex-start">TOTAL</h1>
-                        <h1 class="flex-end"> &#8358; 40000</h1>
+                        <h1 class="flex-end"> &#8358; <span id="totalll"></span></h1>
                     </div>
                 </section>
                 <br><br><br>
+                {{#if cart}}
+                {{#if cart.paymentStatus }}
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary btn-lg" id="btncheckout"
-                        onclick="makePayment()">CHECKOUT</button>
+                    <p>Thanks for your patronage <br> You will be contacted by one of our staff</p>
                 </div>
+                {{else}}
+                {{#if cart.submittedInfo }}
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-lg" id="btncheckout">CHECKOUT</button>
+                </div>
+                {{/if}}
+                {{/if}}
+                {{/if}}
             </div>
         </div>
 
     </div>
 </section>
+{{#if cart}}
+<input type="hidden" id="hidden" value="{{cart._id}}">
+<input type="hidden" id="subtotalll" value="{{cart.total}}">
+<input type="hidden" id="discounttt" value="{{cart.discount}}">
+{{/if}}
 {{> footer }}
+
 <script src="http://www.remitademo.net/payment/v1/remita-pay-inline.bundle.js"></script>
 <script>
+    let sum = document.getElementById("subtotalll").value
+    let dis = document.getElementById("discounttt").value
+    let tot = document.getElementById("totalll")
+    var tot1 = sum - dis
+    tot.textContent = sum - dis
 
-    function makePayment() {
+    let id = document.getElementById("hidden").value
+    let el = document.getElementById("popup")
+    document.getElementById("infoForm").setAttribute("action", `/my-cart/${id}?_method=PATCH`)
+
+    function applyCoupon(id) {
+        let coupon = document.getElementById("couponInput").value
+        $.ajax({
+            url: `/my-cart/${id}/coupon`,
+            type: "POST",
+            dataType: "json",
+            data: {
+                coupon
+            },
+            success: function (data) {
+                document.getElementById("response").textContent = data.message
+                tot1 = data.data.total
+                tot.textContent = data.data.total
+            },
+            error: function () {
+
+            }
+
+        })
+    }
+    document.getElementById("btncheckout").addEventListener('click', function () {
         var paymentEngine = RmPaymentEngine.init({
             key: "UzAwMDAyOTgzNDh8MTg0NDQzOHxlNzQ2Y2U3MDVjNWRkMzViNGY0NzIxODQ1NjBiM2Q3Mjg0ZTg4NjViNGM1ZDViOTc2ZWVkZjExM2FhODVmNWIxN2JhODMzMDJmNDFiZmFlZDZkYzBiMDJkNTA1MzdhYTNhZDQzY2ZjYjcwZTY0NzlmNTJmMGRlZDdlZDE1YjEwOQ==",
-            customerId: "S0000298348",
+            customerId: `${id}`,
             firstName: "Lisa",
             lastName: "Spark",
             email: "demo@remita.net",
             narration: "Payment Description",
-            amount: 10000,
+            amount: tot1,
             onSuccess: function (response) {
                 $.ajax({
-                    url: `/carts/${id}`,
+                    url: `/my-cart/${id}?_method=PUT`,
                     dataType: "json",
-                    type: "PUT"
+                    type: "POST",
                     data: {
                         paymentStatus: true
-                    }
+                    },
                     success: function (data) {
-                        console.log("Successful")
-                    }
+                        document.getElementById("popup").style.display = 'flex'
+                    },
                     error: function () {
                         console.log("Error")
                     }
@@ -153,5 +215,5 @@
             }
         });
         paymentEngine.showPaymentWidget();
-    }
+    })
 </script>

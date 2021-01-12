@@ -63,10 +63,10 @@ exports.login = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
     req.logout()
-    req.session.destroy();
-    // req.flash("success", "Logged out successfully");
-    res.redirect("/admin/users")
+    req.flash("success", "Logged out successfully");
+    res.redirect("/my-cart")
 }
+
 
 	
 

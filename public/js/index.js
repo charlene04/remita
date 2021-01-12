@@ -2,6 +2,10 @@ function productManager(){
     location.href = "/admin/products";
 }
 
+function home() {
+    location.href = "/"
+}
+
 function userManager(){
     location.href = "/admin/users"
 }

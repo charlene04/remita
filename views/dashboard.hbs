@@ -1,5 +1,6 @@
 {{> nav }}
 {{> sidebar }}
+
 <section id="popup">
     <article>
         <form action="/admin/products" method="POST" id="addProduct" enctype="multipart/form-data">
@@ -22,8 +23,8 @@
 
 
             <div class="form-group">
-                <textarea name="description" id="desc" class="w-100" rows="2" placeholder="Product description"
-                    required></textarea>
+                <textarea name="description" id="desc" class="w-100" maxlength="100" rows="2"
+                    placeholder="Product description" required></textarea>
             </div>
             <div class="form-group">
                 <select class="browser-default custom-select" id="cat" name="category" required>
@@ -95,7 +96,7 @@
 
             <div class="form-group">
                 <label for="desc">Description:</label>
-                <textarea name="description" id="Editdesc" class="w-100" rows="2" required></textarea>
+                <textarea name="description" id="Editdesc" class="w-100" maxlength="100" rows="2" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <br>
@@ -144,9 +145,6 @@
                 <th class="th-sm">Name
 
                 </th>
-                <th class="th-sm">Description
-
-                </th>
                 <th class="th-sm">Product Category
 
                 </th>
@@ -165,10 +163,11 @@
 
             {{#each products}}
             <tr class="product-row">
-                <td onmouseover="hover(event)" onmouseout="hover2(event)" class="productName">{{this.name}}
+                <td class="productName"><a href="/shop/{{this._id}}">{{this.name}}</a>
                     <img src="/uploads/{{this.image}}" class="preview" style="position: absolute;" alt="">
+                    <i class="fas fa-images" onmouseover="hover(event)" onclick="fileUpload(event, `{{this._id}}`)"
+                        onmouseout="hover2(event)"></i>
                 </td>
-                <td>{{this.description}}</td>
                 <td>{{this.category}}</td>
                 <td>{{this.price}}</td>
                 <td>{{this.discount}}</td>
@@ -191,6 +190,10 @@
 
 </main>
 <form id="standby" method="POST"></form>
+<form method="POST" enctype="multipart/form-data" id="standbyTwo">
+    <input type="file" name="image" id="standbyInput" onchange="fileSelected(event)">
+</form>
+
 {{> footer }}
 <style>
     footer {
@@ -215,7 +218,7 @@
         const filter = document.getElementsByClassName("filter")[0].value.toLowerCase();
         const products = document.querySelectorAll(".product-row");
         products.forEach(function (product) {
-            let cat = product.children[2].textContent.toLowerCase();
+            let cat = product.children[1].textContent.toLowerCase();
             if (cat.indexOf(filter) != -1) {
                 product.style.display = "table-row";
             } else {
@@ -227,10 +230,10 @@
     }
 
     function hover(e) {
-        e.target.children[0].style.visibility = 'visible'
+        e.target.parentElement.children[1].style.visibility = 'visible'
     }
     function hover2(e) {
-        e.target.children[0].style.visibility = 'hidden'
+        e.target.parentElement.children[1].style.visibility = 'hidden'
     }
 
     let el = document.getElementById('popup')
@@ -266,6 +269,17 @@
         form.submit()
 
 
+    }
+
+    function fileUpload(e, id) {
+        let input1 = document.getElementById("standbyInput")
+        let form = document.getElementById("standbyTwo")
+        form.setAttribute('action', `/admin/products/${id}/image`)
+        input1.click()
+    }
+
+    function fileSelected(e) {
+        document.getElementById("standbyTwo").submit()
     }
 
 
@@ -354,8 +368,8 @@
             },
 
         });
-        console.log("yh")
 
     }
+
 
 </script>

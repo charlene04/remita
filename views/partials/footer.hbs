@@ -1,43 +1,77 @@
-<footer class="bg-light text-center text-lg-start" style="margin-top:80px;
-    
-    width: 100%;">
-    <!-- Grid container -->
-    <div class="container p-4 pb-0">
-        <form action="">
-            <!--Grid row-->
-            <div class="row">
-                <!--Grid column-->
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <p class="pt-2"><strong>Sign up for our newsletter</strong></p>
+<footer class="page-footer font-small pt-5" style="background-color:#e6e9ec; margin-top: 80px; width:100%">
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+        <div class="row mt-3">
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <div class="brand-header">
+                    <a class="navbar-brand" href="/" style="align-items: center;">
+                        <img src="https://res.cloudinary.com/charlene04/image/upload/v1586549256/CampusTutor/logo_twsqug.png"
+                            class="mr-2" width="35" height="35" alt="logo">
+                        <span style="color: black;">DevCamp</span><span style="color: #c81414;">Stores</span>
+                    </a>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
-                <div class="col-md-6 col-12 mb-4 mb-md-0">
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <input type="email" id="form5Example2" class="form-control" />
-                        <label class="form-label" for="form5Example2">Email address</label>
-                    </div>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-md-2 mb-4 mb-md-0">
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary mb-4">Subscribe</button>
-                </div>
-                <!--Grid column-->
+                <p class="text-justify">Let's join hands to build a campus community void of discrimination but ready to
+                    give intellectually, and so simplifying learning and
+                    supporting one another towards a bright and better nation.
+                </p>
             </div>
-            <!--Grid row-->
-        </form>
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+                    style="width: 60px; background: #cb2929">
+
+                {{#if currentUser }}
+                <p>
+                    <a href="/usage-policy">Usage policy</a>
+                </p>
+                <p>
+                    <a href="/faq">FAQs</a>
+                </p>
+                {{else}}
+                <p>
+                    <a href="#signup" onclick="signupShow()">Create an Account</a>
+                </p>
+                <p>
+                    <a href="#login" onclick="loginShow()">Login</a>
+                </p>
+                <p>
+                    <a href="/usage-policy">Usage policy</a>
+                </p>
+                <p>
+                    <a href="/faq">FAQs</a>
+                </p>
+                {{/if}}
+
+
+
+
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <h6 class="text-uppercase font-weight-bold">Contacts</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+                    style="width: 60px; background: #cb2929">
+                <p>
+                    <i class="fas fa-home mr-3"></i>University of Lagos, Lagos, Nigeria.
+                </p>
+                <p>
+                    <i class="fas fa-envelope mr-3"></i> <a
+                        href="mailto:contact.campustutor@gmail.com"></a>hub.campustutor@gmail.com
+                </p>
+                <p>
+                    <i class="fas fa-phone mr-3"></i> <a href="tel:+2348121304117"></a> +234(0)8121304117
+                </p>
+            </div>
+        </div>
     </div>
-    <!-- Grid container -->
+
 
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-        © 2020 Copyright:
-        <a class="text-dark" href="#">4FunWithPride.com</a>
+    <div class="footer-copyright text-center py-3 bg-dark text-white">© 2019 Copyright:
+        <a href="https://mdbootstrap.com/education/bootstrap">campustutor.com</a>
     </div>
     <!-- Copyright -->
+
 </footer>
+<!-- Footer -->

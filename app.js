@@ -17,19 +17,7 @@ const app = express()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public/')))
-const formidable = require('express-formidable');
 const cookieParser = require("cookie-parser")
-
-
-// app.use(formidable({
-// encoding: 'utf-8',
-// uploadDir: path.join(__dirname, '/public/uploads'),
-// multiples: true,
-// keepExtensions:true// req.files to be arrays of files
-// }));
-// app.use(express.json())
-
-
 
 app.use(cookieParser());
 app.use(
@@ -82,16 +70,16 @@ filenames.forEach(async (filename) => {
 // 	  return options.inverse(this);
 // 	});
 
-Handlebars.registerHelper('gte', function( a, b ){
-	var next =  arguments[arguments.length-1];
-	return (a > b) ? next.fn(this) : next.inverse(this);
-});
-const MomentHandler = require("handlebars.moment");
-MomentHandler.registerHelpers(Handlebars);
-Handlebars.registerHelper("greaterThan", function (a, b) {
-	var next = arguments[arguments.length - 1];
-	return a > b ? next.fn() : next.inverse();
-  });
+// Handlebars.registerHelper('gte', function( a, b ){
+// 	var next =  arguments[arguments.length-1];
+// 	return (a > b) ? next.fn(this) : next.inverse(this);
+// });
+// const MomentHandler = require("handlebars.moment");
+// MomentHandler.registerHelpers(Handlebars);
+// Handlebars.registerHelper("greaterThan", function (a, b) {
+// 	var next = arguments[arguments.length - 1];
+// 	return a > b ? next.fn() : next.inverse();
+//   });
 
 
 const authRouter = require("./routes/authRouter")
@@ -100,11 +88,12 @@ const productRouter = require("./routes/productRouter")
 const reviewRouter = require("./routes/reviewRouter")
 const checkoutRouter = require("./routes/checkoutRouter")
 const usersRouter = require("./routes/usersRouter")
+const homeRouter = require("./routes/homeRouter")
 
-app.use('/carts', cartRouter)
+app.use('/my-cart', cartRouter)
 app.use('/auth', authRouter)
 app.use('/products/reviews', reviewRouter)
-
+app.use("/", homeRouter)
 app.use('/admin/products', productRouter)
 app.use('/admin/users', usersRouter)
 app.use('/admin/checkouts', checkoutRouter)
