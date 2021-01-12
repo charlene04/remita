@@ -28,7 +28,7 @@ a, a:hover, a:visited, a:active, a:link
 }
 
 .slider{
-    background-image: url(../images/slider_1.jpg);
+    background-image: url(../img/slider_1.jpg);
     height: 80vh;
     width: 100%;
 }
