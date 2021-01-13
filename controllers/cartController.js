@@ -33,11 +33,9 @@ exports.updateCartPayment = async (req, res) => {
 }
 
 exports.updateCartCustomerInfo = async (req, res) => {
-    const { firstName, lastName, phone, address, email} = req.body
+    const { phone, address, email} = req.body
     const update = {
         customerAddress: address,
-        customerEmail: email,
-        customerName: firstName + " " + lastName,
         customerTel: phone,
         submittedInfo: true
     }
@@ -72,6 +70,8 @@ exports.createCart = async (req, res) => {
 
     
     const newCart = await Cart.create({
+        customerName: req.user.name,
+        customerEmail: req.user.email,
         token,
         total: total,
         discount: discount,

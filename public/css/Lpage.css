@@ -31,19 +31,19 @@ a, a:hover, a:visited, a:active, a:link
     background-image: url(../img/slider_1.jpg);
     background-position: center;
     height: 80vh;
-    width: 100%
+	width: 100%;
+	background-position: top;
 }
 
-.slider-content{
+/* .slider-content{
     position: relative;
     top: 25vh;
-    padding-left: 15%;
-}
-
-.slider-content h6{
-    font-size: x-large;
-}
-
+    padding-left: 100px;
+    width: 60%;
+} */
+/* h1.heading{
+	font-size: 60px!important;
+} */
 .fill-height
 {
 	height: 100%;

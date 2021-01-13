@@ -3,7 +3,7 @@ const path = require("path")
 const methodOverride = require("method-override")
 const flash = require("connect-flash")
 const fs = require('fs')
-const hbs = require("express-handlebars")
+const expbs = require("express-handlebars")
 const passport = require("passport")
 const Handlebars = require("handlebars")
 const mongoose = require("mongoose")
@@ -89,6 +89,7 @@ const reviewRouter = require("./routes/reviewRouter")
 const checkoutRouter = require("./routes/checkoutRouter")
 const usersRouter = require("./routes/usersRouter")
 const homeRouter = require("./routes/homeRouter")
+const shopRouter = require("./routes/shopRouter")
 
 app.use('/my-cart', cartRouter)
 app.use('/auth', authRouter)
@@ -97,6 +98,7 @@ app.use("/", homeRouter)
 app.use('/admin/products', productRouter)
 app.use('/admin/users', usersRouter)
 app.use('/admin/checkouts', checkoutRouter)
+app.use("/shop", shopRouter)
 
 app.all("*", async (req, res, next) => {
 	res.render('error.hbs', {'link': req.originalUrl })
@@ -104,8 +106,13 @@ app.all("*", async (req, res, next) => {
 
 
 //view engine setup
-app.engine("hbs", hbs({extname: "hbs", defaultLayout: "index", layoutsDir: __dirname + "/views/layouts/",
-handlebars: allowInsecurePrototypeAccess(Handlebars)}));
+const hbs = expbs.create({
+	extname: "hbs", 
+	defaultLayout: "index", 
+	layoutsDir: __dirname + "/views/layouts/",
+	handlebars: allowInsecurePrototypeAccess(Handlebars)
+})
+app.engine("hbs", hbs.engine);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 

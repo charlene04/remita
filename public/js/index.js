@@ -23,7 +23,9 @@ $('.close-sidebar').click(function(){
     $('.open-sidebar').show('slow');
     
 });
-
+function shop(){
+    location.href = "/shop"
+}
 function login(){
     location.href = "/auth/login"
 }

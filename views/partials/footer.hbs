@@ -27,6 +27,12 @@
                 <p>
                     <a href="#">FAQs</a>
                 </p>
+                {{#if currentUser.role }}
+                {{!-- <p>
+                    <a href="/admin/products">Admin</a>
+                </p> --}}
+                {{/if}}
+
                 {{else}}
                 <p>
                     <a href="/auth/signup" onclick="signupShow()">Create an Account</a>
@@ -41,6 +47,7 @@
                     <a href="#">FAQs</a>
                 </p>
                 {{/if}}
+
 
 
 
