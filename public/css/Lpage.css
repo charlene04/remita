@@ -40,10 +40,23 @@ a, a:hover, a:visited, a:active, a:link
     top: 25vh;
     padding-left: 100px;
     width: 60%;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 } */
 /* h1.heading{
 	font-size: 60px!important;
 } */
+=======
+=======
+>>>>>>> Stashed changes
+}
+h1.heading{
+	font-size: 60px!important;
+}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 .fill-height
 {
 	height: 100%;
