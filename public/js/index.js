@@ -9,6 +9,10 @@ function home() {
 function userManager(){
     location.href = "/admin/users"
 }
+function clearCartNow() {
+    localStorage.clear();
+    getStorage()
+}
 
 function checkoutManager(){
     location.href = "/admin/checkouts"
@@ -41,6 +45,39 @@ let email = document.getElementById("profile").textContent
 const sub = email.split('@')
 document.getElementById("profile").textContent = sub[0]
 
+
+
+function addToStorage(item){
+    let devcampstores;
+    if(localStorage.getItem('devcampstores') === null){
+        devcampstores = [];
+    }else{
+        devcampstores = JSON.parse(localStorage.getItem('devcampstores'));
+    }
+    devcampstores.push(JSON.parse(item));
+    if(devcampstores.length > 0){
+        let num = document.getElementById("cart_num")
+        num.style.backgroundColor = "red";
+        num.textContent = devcampstores.length
+    }
+    
+    localStorage.setItem('devcampstores', JSON.stringify(devcampstores));
+}
+
+function getStorage(){
+    let devcampstores;
+    if(localStorage.getItem('devcampstores') === null){
+        devcampstores = [];
+    }else{
+        devcampstores = JSON.parse(localStorage.getItem('devcampstores'));
+    }
+    if(devcampstores.length > 0){
+        let num = document.getElementById("cart_num")
+        num.style.backgroundColor = "red";
+        num.textContent = devcampstores.length
+    }
+}
+getStorage()
 
    
     

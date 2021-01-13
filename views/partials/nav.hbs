@@ -16,10 +16,17 @@
 
 
                 {{#if currentUser }}
+                {{#if (equal currentUser.role 'admin')}}
+                <li class="nav-item mr-1">
+                    <a class="nav-link profile" href="/admin/products"><i class="far fa-user"></i>
+                        <span id="profile">{{currentUser.username}}</span></a>
+                </li>
+                {{else}}
                 <li class="nav-item mr-1">
                     <a class="nav-link profile" href="#!"><i class="far fa-user"></i>
                         <span id="profile">{{currentUser.username}}</span></a>
                 </li>
+                {{/if}}
                 <li class="nav-item mr-1 br-1">
                     <a class="nav-link" href="/auth/logout">Logout</a>
                 </li>
@@ -40,14 +47,14 @@
                     </div>
                 </li> --}}
                 <li class="nav-item mr-1">
-                    <a class="nav-link profile" href="#!">
+                    <a class="nav-link profile" href="/shop">
                         <span id="profile">Shop</span></a>
                 </li>
 
                 <li class="nav-item mr-1 cart-top">
                     <div id="cart-top">
-                        <a class="nav-link" href="/auth/login">My Cart</a>
-                        <p>1</p>
+                        <a class="nav-link" href="/my-cart">My Cart</a>
+                        <p id="cart_num"></p>
                     </div>
                 </li>
 

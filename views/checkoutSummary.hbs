@@ -122,7 +122,8 @@
                 {{else}}
                 {{#if cart.submittedInfo }}
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary btn-lg" id="btncheckout">CHECKOUT</button>
+                    <button type="button" class="btn btn-primary btn-lg" id="btncheckout"
+                        onclick="checkout(event, `{{cart.token}}`, `{{cart._id}}`, `{{cart.customerName}}`, `{{cart.customerEmail}}`)">CHECKOUT</button>
                 </div>
                 {{/if}}
                 {{/if}}
@@ -171,14 +172,17 @@
 
         })
     }
-    document.getElementById("btncheckout").addEventListener('click', function () {
+    function checkout(e, token, id, name, email) {
+        let namee = name.split(' ')
+        var firstName = namee[0]
+        var lastName = namee[1]
         var paymentEngine = RmPaymentEngine.init({
             key: "UzAwMDAyOTgzNDh8MTg0NDQzOHxlNzQ2Y2U3MDVjNWRkMzViNGY0NzIxODQ1NjBiM2Q3Mjg0ZTg4NjViNGM1ZDViOTc2ZWVkZjExM2FhODVmNWIxN2JhODMzMDJmNDFiZmFlZDZkYzBiMDJkNTA1MzdhYTNhZDQzY2ZjYjcwZTY0NzlmNTJmMGRlZDdlZDE1YjEwOQ==",
-            customerId: `${id}`,
-            firstName: "Lisa",
-            lastName: "Spark",
-            email: "demo@remita.net",
-            narration: "Payment Description",
+            customerId: `${token}`,
+            firstName: `${firstName}`,
+            lastName: `${lastName}`,
+            email: `${email}`,
+            narration: "DevCampStores",
             amount: tot1,
             onSuccess: function (response) {
                 $.ajax({
@@ -190,9 +194,10 @@
                     },
                     success: function (data) {
                         document.getElementById("popup").style.display = 'flex'
+                        clearCartNow()
                     },
                     error: function () {
-                        console.log("Error")
+                        location.href = '/my-cart'
                     }
                 })
             },
@@ -204,5 +209,5 @@
             }
         });
         paymentEngine.showPaymentWidget();
-    })
+    }
 </script>

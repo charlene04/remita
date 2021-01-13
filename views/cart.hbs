@@ -65,37 +65,7 @@
                     <div class="col-md-3 header-text">Total</div>
                 </div>
                 <section id="itemsList">
-                    <div>
 
-                        <div class="row">
-                            <div class="col-md-6 item-row">
-                                <div class="row items">
-                                    <div class="col-md-4 h-100">
-                                        <img src="/img/photo.jpg" style="height: 100%; width: 100%" alt="">
-                                    </div>
-                                    <div class=" col-md-8 item-row" style="border: none;">
-                                        <div>
-                                            <a href="#">
-                                                <h3>Purple tops</h3>
-                                            </a>
-                                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
-                                                aliquam
-                                                aspernatur sunt modi soluta nesciunt voluptas repellat?</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1 item-row"><i class="fas fa-trash-alt" onclick="removeItem(event)"></i>
-                            </div>
-                            <div class="col-md-2 item-row query">
-                                <input type="number" value="1" min="1" onchange="quantityChange(event, `{{name._id}}`)"
-                                    style="width: 60px;" class="text-center">
-                            </div>
-                            <div class="col-md-3 item-row">50000</div>
-                        </div>
-                        <hr>
-                    </div>
                 </section>
             </section>
         </div>
@@ -109,29 +79,47 @@
     </div>
 </section>
 <form method="POST" id="default">
-    <input type="hidden" name="stringArray">
+    <input type="hidden" name="stringArray" id="inputtt">
 </form>
 <br><br><br><br><br><br>
+
+
 {{> footer }}
 <script>
 
 
 
     function quantityChange(e, id) {
-        let devcampcart;
+        let devcampstores;
         if (localStorage.getItem('devcampcart') === null) {
-            devcampcart = [];
+            devcampstores = [];
         } else {
-            devcampcart = JSON.parse(localStorage.getItem("devcampcart"));
+            devcampstores = JSON.parse(localStorage.getItem("devcampcart"));
         }
-        devcampcart.forEach(function (product, index) {
+        devcampstores.forEach(function (product, index) {
             if (product.id === id) {
                 product.quantity = e.target.value
             }
         })
-        localStorage.setItem("devcampcart", JSON.stringify(devcampcart));
+        localStorage.setItem("devcampstores", JSON.stringify(devcampstores));
 
     }
+
+    function onLoad() {
+        let devcampstores;
+        if (localStorage.getItem('devcampstores') === null) {
+            devcampstores = [];
+        } else {
+            devcampstores = JSON.parse(localStorage.getItem("devcampstores"));
+        }
+        let div = "";
+        devcampstores.forEach(function (product) {
+            div += `<div><div class="row"><div class="col-md-6 item-row"><div class="row items"><div class="col-md-4 h-100"><img src="/uploads/${product.image}" style="height: 100%; width: 100%" alt=""></div><div class=" col-md-8 item-row" style="border: none; justify-content: flex-start"><div ><a href="/shop/${product.id}"><h3>${product.name}</h3></a><p>${product.description}</p></div></div></div></div><div class="col-md-1 item-row"><i class="fas fa-trash-alt" onclick="removeItem(event)"></i></div><div class="col-md-2 item-row query"><input type="number" value="${product.quantity}" min="1" onkeyup="quantityChange(event, '${product.id}')" style="width: 60px;" class="text-center"></div><div class="col-md-3 item-row"><div><span style="text-decoration: line-through; color: #00000080">${product.price}</span><br><br><span style="color: red">${product.price - product.discount}</span></div></div></div><hr></div>`
+        })
+        document.getElementById("itemsList").innerHTML = div
+
+    }
+    onLoad()
 
 
     var itemsList = document.getElementById("itemsList")
@@ -147,6 +135,7 @@
             itemsList.removeChild(itemsList.firstChild);
             localStorage.clear();
         }
+        getStorage()
     }
 
     function removeItem(e) {
@@ -157,18 +146,19 @@
 
 
     function deleteItemFromLocalStorage(item) {
-        let devcampcart;
-        if (localStorage.getItem('devcampcart') === null) {
-            devcampcart = [];
+        let devcampstores;
+        if (localStorage.getItem('devcampstores') === null) {
+            devcampstores = [];
         } else {
-            devcampcart = JSON.parse(localStorage.getItem("devcampcart"));
+            devcampstores = JSON.parse(localStorage.getItem("devcampstores"));
         }
-        devcampcart.forEach(function (product, index) {
-            if (item.childElement.childElement.lastElementChild.childElement.firstElementChild.childElement.textContent === product.name) {
-                devcampcart.splice(index, 1);
+        devcampstores.forEach(function (product, index) {
+            if (item.children[0].children[0].children[1].children[0].children[0].textContent === product.name) {
+                devcampstores.splice(index, 1);
             }
         })
-        localStorage.setItem("devcampcart", JSON.stringify(devcampcart));
+        localStorage.setItem("devcampstores", JSON.stringify(devcampstores));
+        getStorage()
 
     }
     //pick fields
@@ -185,19 +175,38 @@
     }
     //proceed to checkout
     function proceedToCheckout() {
-        let devcampcart;
-        if (localStorage.getItem('devcampcart') === null) {
-            devcampcart = [];
+        let devcampstores;
+        if (localStorage.getItem('devcampstores') === null) {
+            devcampstores = [];
         } else {
-            devcampcart = JSON.parse(localStorage.getItem("devcampcart"));
+            devcampstores = JSON.parse(localStorage.getItem("devcampstores"));
         }
-        let newArray = devcampcart.map(function (product) {
+        if (devcampstores.length < 1) {
+            return;
+        }
+        let newArray = devcampstores.map(function (product) {
             return pick(product, ["id", "quantity"])
         })
         let formm = document.getElementById("default")
-        formm.setAttribute("action", "/carts")
-        document.getElementById("inputtt").value = newArray
-        form.submit()
+        formm.setAttribute("action", "/my-cart")
+        document.getElementById("inputtt").value = JSON.stringify(newArray)
+        formm.submit()
+
+    }
+    function quantityChange(e, id) {
+        let devcampstores;
+        if (localStorage.getItem('devcampstores') === null) {
+            devcampstores = [];
+        } else {
+            devcampstores = JSON.parse(localStorage.getItem("devcampstores"));
+        }
+        devcampstores.forEach(function (product, index) {
+            if (product.id === id) {
+                product.quantity = e.target.value
+            }
+        })
+        localStorage.setItem("devcampstores", JSON.stringify(devcampstores));
+        getStorage()
 
     }
 </script>

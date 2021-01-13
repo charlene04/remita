@@ -2,7 +2,7 @@
 <section>
     <header>
         <div class="text-center">
-            <h1>Image Gallery</h1>
+            <h1>The Shop's Gallery</h1>
             <p>Hover on an item card to review its price. Click on the card to see more details about the product.
                 <br> Use the cart icon to add the item to cart.
             </p>
@@ -32,12 +32,16 @@
             {{#if products }}
             {{#each products }}
             <li class="item"><img class="grid-item" src="/uploads/{{this.image}}">
-                <div class="overlay" onclick="redirect(event)">
+                <div class="overlay">
                     <div class="text-center">
-                        <p>{{this.name}}</p>
+                        <a href="/shop/{{this._id}}" class="card_name">
+                            <p>{{this.name}}</p>
+                        </a>
                         <br>
                         <p class="price">{{this.price}}</p>
-                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                        <a href="#"
+                            onclick='addToStorage(`{"quantity":1,"discount":"{{this.discount}}","id":"{{this._id}}", "image":"{{this.image}}", "description" :"{{this.description}}", "price" :"{{this.price}}", "name" :"{{this.name}}"}`)'><i
+                                class="fas fa-cart-plus"></i></a>
                     </div>
                 </div>
             </li>
@@ -49,11 +53,18 @@
 
 {{> footer }}
 <script>
-    function redirect(e) {
-        console.log(e.target)
-    }
+
+    document.getElementById("cart_icon").addEventListener('click', function (event) {
+        if (event.currentTarget !== event.target) {
+            return;
+        }
+    }, false);
 </script>
 <style>
+    .card_name {
+        color: white !important;
+    }
+
     .overlay {
         position: relative;
         background-color: #0000007d;
@@ -76,6 +87,7 @@
         right: 10px;
         color: white;
         font-size: 18px !important;
+        z-index: 2;
     }
 
     .overlay .text-center {
@@ -97,6 +109,12 @@
     ul.gallery {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    ul.gallery:after {
+        content: '';
+        display: block;
+        flex-grow: 10;
     }
 
     ul.gallery li {

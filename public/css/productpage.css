@@ -37,9 +37,7 @@
     margin-left: 20px;
     padding: 20px;
 }
-.fas{
-    color: #E3D4AF;
-}
+
 .producttext h2{
     font-family: 'Raleway', sans-serif;
     color: #42586E;
@@ -48,6 +46,7 @@
 }
 #zara{
     margin-top: 0;
+    color: brown;
 }
 .producttext p{
     font-size:17px;
@@ -56,8 +55,7 @@
     font-size:13px;
 }
 .producttext table tr td{
-    padding: 30px 120px;
-    font-size: 17px;
+    font-size: 17px!important;
     font-family: 'Poppins', sans-serif;
 }
 #total {
@@ -76,9 +74,14 @@
 .sizebottons button:hover{
     background-color: #42586E;
 }
-#addtocart{
-    width: 250px;
-    height: 50px;
+div.addto{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+.addtocart{
+    width: 150px;
+    height: 40px;
     margin-top: 20px;
     border-radius: 3px;
     border: 0 solid rgba(0,0,0,0.19);
@@ -86,7 +89,14 @@
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
     background-color: #42586E;
+    color: #fff;
+    cursor: pointer;
+    
 }
-#addtocart:hover{
+.cursor{
+    cursor: pointer;
+}
+.addtocart:hover{
     background-color: #E3D4AF;
+    color: black;
 }

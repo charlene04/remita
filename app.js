@@ -110,7 +110,15 @@ const hbs = expbs.create({
 	extname: "hbs", 
 	defaultLayout: "index", 
 	layoutsDir: __dirname + "/views/layouts/",
-	handlebars: allowInsecurePrototypeAccess(Handlebars)
+	handlebars: allowInsecurePrototypeAccess(Handlebars),
+	helpers:{
+		diff: function(a, b){
+			return a - b
+		},
+		equal: function(a, b){
+			return a === b
+		}
+	}
 })
 app.engine("hbs", hbs.engine);
 app.set("views", path.join(__dirname, "views"));

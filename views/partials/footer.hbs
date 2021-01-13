@@ -27,10 +27,10 @@
                 <p>
                     <a href="#">FAQs</a>
                 </p>
-                {{#if currentUser.role }}
-                {{!-- <p>
+                {{#if (equal currentUser.role 'admin') }}
+                <p>
                     <a href="/admin/products">Admin</a>
-                </p> --}}
+                </p>
                 {{/if}}
 
                 {{else}}

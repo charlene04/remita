@@ -55,13 +55,14 @@ textarea{padding: 5px; font-size: small; border: 0.4px solid #e5e5e5; padding: 5
     position: absolute;
     
 }
+
 .br-1{
     border-right: 0.1px solid #000000ab;
 }
 #cart-top  p{
     color: white;
     border-radius: 50%;
-    background-color: red;
+    background-color: none;
     position: absolute;
     margin-top: -1px;
     margin-left: 50px;
@@ -156,9 +157,8 @@ div#section{
 .single-row{
     margin-top: 60px; 
     z-index: 1030; 
-    position:fixed; 
+    position:fixed!important; 
     width:100%; 
-    cursor:pointer;
 }
 
 

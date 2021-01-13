@@ -71,7 +71,7 @@ exports.createCart = async (req, res) => {
     
     const newCart = await Cart.create({
         customerName: req.user.name,
-        customerEmail: req.user.email,
+        customerEmail: req.user.username,
         token,
         total: total,
         discount: discount,
