@@ -2,27 +2,33 @@
 
 const Product = require("./../models/Products")
 const Review = require("./../models/Reviews")
+const dateFormat = require("dateformat")
 
-exports.getAllReviews = (req, res) => {
-    res.send("get all reviews route!")
-}
-exports.getOneReview = (req, res) => {
-    res.send("get one review route!")
-}
-exports.updateReview = (req, res) => {
-    res.send("update review route!")
-}
+// exports.getAllReviews = (req, res) => {
+//     res.send("get all reviews route!")
+// }
+// exports.getOneReview = (req, res) => {
+//     res.send("get one review route!")
+// }
+// exports.updateReview = (req, res) => {
+//     res.send("update review route!")
+// }
 exports.createReview = async (req, res) => {
     const product = await Product.find({_id: req.params.id})
-    const review = await Review.create({
+    const newReview = {
         name: req.user.name,
-        content: req.body.content
+        content: req.body.review,
+        location: req.user.location,
+        date: dateFormat(Date.now(), 'paddedShortDate')
+    }
+    const review = await Review.create(newReview)
+    product[0].reviews.push(newReview)
+    await product[0].save()
+    res.status(200).json({
+        "status":"success",
+        "message":"Reviews submitted successfully"
     })
-    product.reviews.push(review)
-    product.save()
-    req.flash("success", "Your review was recorded successfully")
-    res.redirect(`/admin/products/${req.params.id}`)
 }
-exports.deleteReview = (req, res) => {
-    res.send("delete review route!")
-}
+// exports.deleteReview = (req, res) => {
+//     res.send("delete review route!")
+// }

@@ -10,12 +10,14 @@
             <br>
             <div class="w-100 bg-light p-4">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control p-4" placeholder="Submit a review"
-                        aria-label="Submit a review" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control p-4" min="5" placeholder="Submit a review"
+                        aria-label="Submit a review" id="reviewInput" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary py-4" type="button">Submit</button>
+                        <button class="btn btn-outline-secondary py-4" type="button"
+                            onclick="submitReview(`{{product._id}}`)">Submit</button>
                     </div>
                 </div>
+                <small id="response"></small>
             </div>
         </div>
         <div class="col-md-5">
@@ -70,28 +72,15 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <p><em>I bought a dress here and the dress was great, comfortable and an
-                                                immaculate
-                                                fit.
-                                                The dress also arrived on time. <br> &#8211; <strong>Wuraola
-                                                    Adesina</strong>,
-                                                Lagos. 12/01/2021</em></p>
+                                                immaculate fit. The dress also arrived on time. <br> &#8211;
+                                                <strong>Wuraola Adesina</strong>, Lagos. 12/01/2021</em></p>
                                     </div>
-                                    <div class="carousel-item">
-                                        <p><em>I bought a dress here and the dress was great, comfortable and an
-                                                immaculate
-                                                fit.
-                                                The dress also arrived on time. <br> &#8211; <strong>Wuraola
-                                                    Adesina</strong>,
-                                                Lagos. 12/01/2021</em></p>
+                                    {{#each product.reviews }}
+                                    <div class="carousel-item ">
+                                        <p><em>{{this.content}} <br> &#8211; <strong>{{this.name}}</strong>,
+                                                {{this.location}}. {{this.date}}</em></p>
                                     </div>
-                                    <div class="carousel-item">
-                                        <p><em>I bought a dress here and the dress was great, comfortable and an
-                                                immaculate
-                                                fit.
-                                                The dress also arrived on time. <br> &#8211; <strong>Wuraola
-                                                    Adesina</strong>,
-                                                Lagos. 12/01/2021</em></p>
-                                    </div>
+                                    {{/each}}
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
                                     data-slide="prev">
@@ -118,3 +107,26 @@
         color: #E3D4AF;
     }
 </style>
+<script>
+    function submitReview(id) {
+        let review = document.getElementById("reviewInput").value
+        if (review.length < 5) {
+            return
+        }
+        $.ajax({
+            url: `/products/${id}/reviews`,
+            type: "POST",
+            dataType: "json",
+            data: {
+                review
+            },
+            success: function (data) {
+                document.getElementById("reviewInput").value = ''
+                location.reload()
+            },
+            error: function () {
+
+            }
+        })
+    }
+</script>

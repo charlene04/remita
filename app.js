@@ -93,7 +93,7 @@ const shopRouter = require("./routes/shopRouter")
 
 app.use('/my-cart', cartRouter)
 app.use('/auth', authRouter)
-app.use('/products/reviews', reviewRouter)
+app.use('/products', reviewRouter)
 app.use("/", homeRouter)
 app.use('/admin/products', productRouter)
 app.use('/admin/users', usersRouter)

@@ -30,6 +30,7 @@
     .top-btns button {
         margin-right: 40px;
     }
+   
 
     .item-row {
         display: flex;
@@ -79,4 +80,22 @@
         border: 0.3px solid #fff;
 
     }
-   
+   /* #cardList{
+       display: none;
+       grid-gap: 10px;
+       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+   } */
+   .cart-header{
+    display: flex;
+}
+    /* @media screen and (max-width: 1000px){
+       #itemsList{
+           display: none;
+       }
+       #cardList{
+           display: grid;
+       }
+       .cart-header{
+           display: none;
+       }
+    } */

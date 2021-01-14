@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const dateFormat = require("dateformat")
 
 const reviewsSchema = new mongoose.Schema({
     name: {
@@ -9,10 +10,11 @@ const reviewsSchema = new mongoose.Schema({
         type: String, 
         required: [true, 'Content cannot be blank']
     },
+    location: String,
      
     date: {
         type: Date,
-        default: Date.now()
+        default: dateFormat(Date.now(), 'paddedShortDate')
     }
 })
 

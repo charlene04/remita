@@ -20,12 +20,7 @@ const productSchema = new mongoose.Schema({
         type: String
         // required: [true, 'Image is required for a new product']
     },
-    reviews: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Review"
-        }
-    ],
+    reviews: [],
     category: String
     
 })

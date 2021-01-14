@@ -1,32 +1,17 @@
 {{> nav }}
-<style>
-    h1 {
-        letter-spacing: 4px;
-        font-size: 40px !important;
-    }
 
-    header {
-        height: 40vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #42586e;
-        color: #fff;
-        padding-top: 50px
-    }
-</style>
-<header>
-    <div class="text-center"><br>
-        <h1>What's In Your Shopping Cart</h1>
-        <p>The items below are currently in your shopping cart. <br> To remove an item, click on the bin
-            icon. To
-            continue to checkout,
-            please click "Proceed to Checkout"
-        </p>
-        <hr class="style-eight">
-    </div>
-</header>
-<section>
+
+<section class="mt-40">
+    <header class=" p-2 headerr">
+        <div class="text-center ">
+            <h1 class="for-header">What's In Your Shopping Cart</h1>
+            <p>The items below are currently in your shopping cart. <br> To remove an item, click on the bin
+                icon. To
+                continue to checkout,
+                please click "Proceed to Checkout"
+            </p>
+        </div>
+    </header>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -58,12 +43,13 @@
             </div>
 
             <section class="w-100">
-                <div class="row cart-header">
+                <div class="cart-header">
                     <div class="col-md-6 header-text">Items</div>
                     <div class="col-md-1 header-text">Remove</div>
                     <div class="col-md-2 header-text">Qty.</div>
                     <div class="col-md-3 header-text">Total</div>
                 </div>
+
                 <section id="itemsList">
 
                 </section>
@@ -113,10 +99,16 @@
             devcampstores = JSON.parse(localStorage.getItem("devcampstores"));
         }
         let div = "";
+        let div1 = "";
         devcampstores.forEach(function (product) {
-            div += `<div><div class="row"><div class="col-md-6 item-row"><div class="row items"><div class="col-md-4 h-100"><img src="/uploads/${product.image}" style="height: 100%; width: 100%" alt=""></div><div class=" col-md-8 item-row" style="border: none; justify-content: flex-start"><div ><a href="/shop/${product.id}"><h3>${product.name}</h3></a><p>${product.description}</p></div></div></div></div><div class="col-md-1 item-row"><i class="fas fa-trash-alt" onclick="removeItem(event)"></i></div><div class="col-md-2 item-row query"><input type="number" value="${product.quantity}" min="1" onkeyup="quantityChange(event, '${product.id}')" style="width: 60px;" class="text-center"></div><div class="col-md-3 item-row"><div><span style="text-decoration: line-through; color: #00000080">${product.price}</span><br><br><span style="color: red">${product.price - product.discount}</span></div></div></div><hr></div>`
+            div += `<div><div class="row itemmm"><div class="col-md-6 item-row"><div class="row items"><div class="col-md-4 h-100"><img src="/uploads/${product.image}" style="height: 100%; width: 100%" alt=""></div><div class=" col-md-8 item-row" style="border: none; justify-content: flex-start"><div ><a href="/shop/${product.id}"><h3>${product.name}</h3></a><p class="desc1">${product.description}</p></div></div></div></div><div class="col-md-1 item-row"><i class="fas fa-trash-alt" onclick="removeItem(event)"></i></div><div class="col-md-2 item-row query"><input type="number" value="${product.quantity}" min="1" onkeyup="quantityChange(event, '${product.id}')" style="width: 60px;" class="text-center"></div><div class="col-md-3 item-row"><div><span style="text-decoration: line-through; color: #00000080">${product.price}</span><br><br><span style="color: red">${product.price - product.discount}</span></div></div></div><hr></div>`
+
+            //   div1 += `<div class="card" style="width: 18rem;"><img src="/uploads/${product.image}" class="card-img-top" alt="..."><div class="card-body"><a href="/shop/${product.id}">
+            //    <h5 class="card-title">${product.name}</h5></a>
+            //    <p class="card-text">${product.description}</p><div class="px-2 openbtw"><span style="text-decoration: line-through; color: #00000080">${product.price - product.discount}</span><span style="color: red">${product.price}</span></div><br><div class="openbtw"><input style="width: 60px; border-radius:5px; border: 0.1px solid #e5e5e5" type="number" value="${product.quantity}" min="1" onkeyup="quantityChange(event, '${product.id}')"><i class="fas fa-trash-alt" onclick="removeItem(event)"></i></div></div></div>`
         })
         document.getElementById("itemsList").innerHTML = div
+        // document.getElementById("cardList").innerHTML = div1
 
     }
     onLoad()
@@ -135,7 +127,9 @@
             itemsList.removeChild(itemsList.firstChild);
             localStorage.clear();
         }
-        getStorage()
+        let num = document.getElementById("cart_num")
+        num.style.display = "none";
+
     }
 
     function removeItem(e) {
@@ -152,8 +146,9 @@
         } else {
             devcampstores = JSON.parse(localStorage.getItem("devcampstores"));
         }
+
         devcampstores.forEach(function (product, index) {
-            if (item.children[0].children[0].children[1].children[0].children[0].textContent === product.name) {
+            if (item.children[0].children[0].children[1].children[0].children[0].textContent === product.name || item.children[0].children[0].textContent === product.name) {
                 devcampstores.splice(index, 1);
             }
         })
