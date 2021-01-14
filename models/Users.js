@@ -51,7 +51,7 @@ const UserSchema = new mongoose.Schema({
     },
     
 })
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, options);
 
 // UserSchema.pre("save", async function(next){
 //     if(!this.isModified('password')) return next()

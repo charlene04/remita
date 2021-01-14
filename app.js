@@ -10,6 +10,8 @@ const mongoose = require("mongoose")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")(session);
 const bodyParser = require("body-parser")
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.EMAIL_KEY);
 
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const app = express()
@@ -22,7 +24,7 @@ const cookieParser = require("cookie-parser")
 app.use(cookieParser());
 app.use(
 	session({
-	  secret: "SECRET",
+	  secret: process.env.SESSION_SECRET,
 	  resave: false,
 	  saveUninitialized: false,
 	  cookie: { secure: false },
@@ -61,26 +63,30 @@ filenames.forEach(async (filename) => {
   Handlebars.registerPartial(name, template);
 });
 
-// // Register HelperFxn
-// Handlebars.registerHelper('greaterThan', function (v1, v2, options) {
-// 	'use strict';
-// 	   if (v1>v2) {
-// 		 return options.fn(this);
-// 	  }
-// 	  return options.inverse(this);
-// 	});
 
-// Handlebars.registerHelper('gte', function( a, b ){
-// 	var next =  arguments[arguments.length-1];
-// 	return (a > b) ? next.fn(this) : next.inverse(this);
-// });
-// const MomentHandler = require("handlebars.moment");
-// MomentHandler.registerHelpers(Handlebars);
-// Handlebars.registerHelper("greaterThan", function (a, b) {
-// 	var next = arguments[arguments.length - 1];
-// 	return a > b ? next.fn() : next.inverse();
-//   });
 
+app.post("/email", async (req, res) => {
+    const msg = {
+		to: req.body.email,
+    	from: 'developmenthub123@gmail.com',
+    	subject: 'Thank you for your patronage - DevCampStores',
+		html: `<h4>Hello dear,</h4>
+		<p>We at DevCampStores are glad to have served you well. A staff of ours will reach out to you as regards your order.</p>
+		<p>Here is your ORDER_TOKEN: ${req.body.token}</p><p>We looking forward to serving you better next time</p><br> <em>Warm Regards</em>
+		`
+	};
+		sgMail.send(msg).then(() => {
+			res.status(200).json({
+				"status":"success",
+				"message":"Email sent"
+			})
+		}).catch(error => {
+			res.status(400).json({
+				"status":"fail",
+				"message":"Email sending failed"
+			})
+		})
+	})
 
 const authRouter = require("./routes/authRouter")
 const cartRouter = require("./routes/cartRouter")
@@ -126,9 +132,5 @@ app.set("view engine", "hbs");
 
 
 
-
-
-
-
-
 module.exports = app
+

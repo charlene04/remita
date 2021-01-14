@@ -9,7 +9,6 @@ const AppError = require("./../utils/AppError")
 
 exports.signup = async (req, res, next) =>{
     try{
-        console.log(req.body)
         const newUser = new User({
             name: req.body.name,
             username: req.body.username,

@@ -193,8 +193,24 @@
                         paymentStatus: true
                     },
                     success: function (data) {
-                        document.getElementById("popup").style.display = 'flex'
-                        clearCartNow()
+                        $.ajax({
+                            url: `/email`,
+                            dataType: "json",
+                            type: "POST",
+                            data: {
+                                email: `${email}`,
+                                token: `${token}`
+                            },
+                            success: function (data) {
+                                document.getElementById("popup").style.display = 'flex'
+                                clearCartNow()
+                            },
+                            error: function () {
+                                document.getElementById("popup").style.display = 'flex'
+                                clearCartNow()
+                            }
+                        })
+
                     },
                     error: function () {
                         location.href = '/my-cart'
