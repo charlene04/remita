@@ -111,8 +111,7 @@ input{
 .mobile{
     visibility: hidden;
 }
-
-@media screen and (max-width:1000px){
+@media screen and (max-width:1000px) and (min-width:600px){
     .text{
         display:none;
     }
@@ -120,7 +119,48 @@ input{
         background-image: linear-gradient(to right, #E3D4AF 50%, #42586E 50%);
     }
     .form{
-        margin: 50px auto 20px;
+        margin: 50px auto 20px;  
+    }
+    .form input{
+        width: auto;
+    }
+    .form #button{
+        text-align: center;
+        margin-top: 10px;
+    }
+    .mobile{
+        color: white;
+        visibility: visible;
+    }
+    .mobile a{
+        color: teal;
+        text-decoration: none;
+    }
+    .mobile a:hover{
+        color: white;
+    }
+}
+
+@media screen and (max-width:600px){
+    .contains{
+        width: 100%;
+    }
+    .text{
+        display:none;
+    }
+    .body{
+        background-image: linear-gradient(to right, #E3D4AF 50%, #42586E 50%);
+    }
+    .form{
+        margin: 50px auto 20px;  
+    }
+    .form input{
+        width: auto;
+        margin: 8px auto;
+    }
+    .form #button{
+        text-align: center;
+        margin-top: 10px;
     }
     .mobile{
         color: white;
