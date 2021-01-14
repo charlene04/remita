@@ -107,3 +107,30 @@ input{
 .form i:hover{
     color: white;
 }
+
+.mobile{
+    visibility: hidden;
+}
+
+@media screen and (max-width:1000px){
+    .text{
+        display:none;
+    }
+    .body{
+        background-image: linear-gradient(to right, #E3D4AF 50%, #42586E 50%);
+    }
+    .form{
+        margin: 50px auto 20px;
+    }
+    .mobile{
+        color: white;
+        visibility: visible;
+    }
+    .mobile a{
+        color: teal;
+        text-decoration: none;
+    }
+    .mobile a:hover{
+        color: white;
+    }
+}
