@@ -122,7 +122,8 @@ input{
         margin: 50px auto 20px;  
     }
     .form input{
-        width: auto;
+        width: 100%;
+        margin: 20px 0;
     }
     .form #button{
         text-align: center;
@@ -155,7 +156,7 @@ input{
         margin: 50px auto 20px;  
     }
     .form input{
-        width: auto;
+        width: 100%;
         margin: 8px auto;
     }
     .form #button{
