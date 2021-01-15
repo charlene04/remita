@@ -9,6 +9,7 @@ const Handlebars = require("handlebars")
 const mongoose = require("mongoose")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")(session);
+const favicon = require('serve-favicon')
 const bodyParser = require("body-parser")
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.EMAIL_KEY);
@@ -33,7 +34,7 @@ app.use(
 	  }),
 	})
   );
-  
+app.use(favicon(__dirname + '/favicon.ico'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
