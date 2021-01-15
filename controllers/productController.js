@@ -3,7 +3,8 @@ const Category = require("./../models/Categories")
 const Coupon = require("./../models/Coupon");
 const schedule = require("node-schedule")
 const formidable = require('formidable');
-const path = require("path")
+const path = require("path");
+const catchAsync = require("../utils/catchAsync");
 
 const form = formidable({uploadDir: path.join(__dirname, '/../public/uploads/'), keepExtensions:true});
 
@@ -14,14 +15,14 @@ const form = formidable({uploadDir: path.join(__dirname, '/../public/uploads/'),
 //     keepExtensions:true// req.files to be arrays of files
 
 
-exports.getAllProducts = async (req, res) => {
+exports.getAllProducts = catchAsync(async (req, res) => {
     const products = await Product.find()
     const categories = await Category.find()
     res.render('dashboard.hbs', { 'products': products, 'categories': categories, 'title': 'Admin Dashboard' })
-}
+})
 
 
-exports.getOneProduct = async (req, res) => {
+exports.getOneProduct = catchAsync(async (req, res) => {
     const product = await Product.find({ _id: req.params.id })
     res.status(200).json({
         status: "success",
@@ -29,9 +30,9 @@ exports.getOneProduct = async (req, res) => {
             product
         }
     })
-}
+})
 
-exports.updateProduct = async (req, res) => {
+exports.updateProduct = catchAsync(async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true})
     if(updatedProduct){
         req.flash("success", "Product updated successfully")
@@ -41,10 +42,10 @@ exports.updateProduct = async (req, res) => {
         res.redirect("back")
     }
     
-}
+})
 
 
-exports.createProduct = async (req, res) => {
+exports.createProduct = catchAsync(async (req, res) => {
     form.parse(req, async (err, fields, files) => {
     const {name, price, discount, description, category } = fields
     if (!name || !price || !category || !description ){
@@ -64,14 +65,14 @@ exports.createProduct = async (req, res) => {
     req.flash("success", "New Product added successfully")
     res.redirect("/admin/products")
 })
-}
+})
 
-exports.deleteProduct = async (req, res) => {
+exports.deleteProduct = catchAsync(async (req, res) => {
     await Product.findOneAndDelete({ _id: req.params.id })
     res.status(204).json({message: 'Successfully deleted'})    
-}
+})
 
-exports.updateProductImage = async (req, res) => {
+exports.updateProductImage = catchAsync(async (req, res) => {
     form.parse(req, async (err, fields, files) => {
         const patth = files.image.path.split('\\')
         const updateProduct = await Product.findByIdAndUpdate(req.params.id, {image: patth[patth.length - 1]}, {new: true})
@@ -82,21 +83,21 @@ exports.updateProductImage = async (req, res) => {
         req.flash('success', 'Product updated successfully')
         res.redirect('/admin/products')
     })   
-}
+})
 
 // CATEGORIES AND COUPONS CONTROLLER
 
 
 
-exports.addCategory = async (req, res) => {
+exports.addCategory = catchAsync(async (req, res) => {
     const cat = await Category.create({
         category: req.body.category
     })
     req.flash("success", "Product category added successfully")
     res.redirect("/admin/products")
-}
+})
 
-exports.addCoupon = async (req, res, next) => {
+exports.addCoupon = catchAsync(async (req, res, next) => {
     const {value, coupon, days } = req.body
     if(!value || !coupon || !days){
         req.flash("error", "Provide the necessary fields")
@@ -118,4 +119,4 @@ exports.addCoupon = async (req, res, next) => {
     req.flash("success", "Coupon added successfully")
     res.redirect("/admin/products")
     
-}
+})

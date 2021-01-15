@@ -2,30 +2,24 @@ const User = require("./../models/Users")
 const jwt = require("jsonwebtoken");
 const passport = require("passport")
 const AppError = require("./../utils/AppError")
+const catchAsync = require("./../utils/catchAsync")
 
 // const signToken = id => {
 //     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN })
 // }
 
-exports.signup = async (req, res, next) =>{
-    try{
+exports.signup = catchAsync(async (req, res, next) =>{
         const newUser = new User({
             name: req.body.name,
             username: req.body.username,
             location: req.body.location
         })
         const createdUser = await User.register(newUser, req.body.password)
-        return res.redirect("/auth/login")
-    }catch(err){
-        console.log(err)
-        req.flash("error", "Something went wrong!");
-        return res.redirect("back")
-    }
-    
-}
+        return res.redirect("/auth/login") 
+})
 
 
-exports.login = async (req, res, next) => {
+exports.login = catchAsync(async (req, res, next) => {
     // const { password, username} = req.body;
     // if(!username || !password ){
     //     req.flash("error", "Invalid credentials!");
@@ -57,7 +51,7 @@ exports.login = async (req, res, next) => {
             })
         }
       })(req, res, next);
-}
+})
 
 
 exports.logout = async (req, res, next) => {

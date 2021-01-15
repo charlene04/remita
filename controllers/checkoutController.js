@@ -1,12 +1,12 @@
 const Cart = require("./../models/Carts");
+const catchAsync = require("./../utils/catchAsync")
 
-
-exports.getAllCheckouts = async (req, res) => {
+exports.getAllCheckouts = catchAsync(async (req, res) => {
     const carts= await Cart.find()
     res.render('checkouts.hbs', { 'carts': carts, 'title': 'Admin Dashboard'})
-}
+})
 
-exports.getCheckout = async (req, res) => {
+exports.getCheckout = catchAsync(async (req, res) => {
     const checkout = await Cart.findById(req.params.id)
     res.status(200).json({
         "status":"success",
@@ -14,16 +14,16 @@ exports.getCheckout = async (req, res) => {
             checkout
         }
     })
-}
+})
 
-exports.updateCheckout = async (req, res) => {
+exports.updateCheckout = catchAsync(async (req, res) => {
     await Cart.findByIdAndUpdate(req.params.id, {deliveryStatus: req.body.delivery}, {new: true})
     req.flash("success", "Checkout updated successfully")
     res.redirect("/admin/checkouts")
-}
+})
 
-exports.deleteCheckout = async (req, res) => {
+exports.deleteCheckout = catchAsync(async (req, res) => {
     await Cart.findByIdAndDelete(req.params.id)
     req.flash("success", "Checkout deleted successfully")
     res.redirect("/admin/checkouts")
-}
+})

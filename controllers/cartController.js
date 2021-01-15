@@ -3,12 +3,15 @@ const generator = require('generate-password');
 const Product = require("./../models/Products")
 const Cart = require("./../models/Carts")
 const Coupon = require("./../models/Coupon")
+const catchAsync = require("./../utils/catchAsync")
+
+
 
 exports.getCart = async (req, res) => {
     res.render('cart.hbs')
 }
 
-exports.cartSummary = async (req, res) => {
+exports.cartSummary = catchAsync(async (req, res) => {
     const cart = await Cart.findById(req.params.id)
     if(cart){
         console.log(cart)
@@ -16,9 +19,9 @@ exports.cartSummary = async (req, res) => {
     }
     req.flash("error", "Something went wrong. Please try again")
     res.redirect("back")
-}
+})
 
-exports.updateCartPayment = async (req, res) => {
+exports.updateCartPayment = catchAsync(async (req, res) => {
     const assigned = "check-me-out-on-the-tracking-system"
     const cart = await Cart.findByIdAndUpdate(req.params.id, req.body, {new: true})
     if(cart){
@@ -30,9 +33,9 @@ exports.updateCartPayment = async (req, res) => {
         })
     }
     
-}
+})
 
-exports.updateCartCustomerInfo = async (req, res) => {
+exports.updateCartCustomerInfo = catchAsync(async (req, res) => {
     const { phone, address, email} = req.body
     const update = {
         customerAddress: address,
@@ -46,10 +49,10 @@ exports.updateCartCustomerInfo = async (req, res) => {
     req.flash("error", "Something went wrong")
     res.redirect('/my-cart')
     
-}
+})
 
 
-exports.createCart = async (req, res) => { 
+exports.createCart = catchAsync(async (req, res) => { 
     const token = generator.generate({
         length: 15,
         numbers: true,
@@ -86,9 +89,9 @@ exports.createCart = async (req, res) => {
     res.redirect(`/my-cart/${updatedCart._id}`)
  })
     
-}
+})
 
-exports.applyCoupon = async (req, res, next) => {
+exports.applyCoupon = catchAsync(async (req, res, next) => {
     const coupon = await Coupon.findOne({coupon: req.body.coupon})
     const cart = await Cart.findById(req.params.id)
     if(coupon && coupon.applied.includes(req.params.id)){
@@ -112,7 +115,7 @@ exports.applyCoupon = async (req, res, next) => {
             })
         })
     }
-}
+})
 
 
 

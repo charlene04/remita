@@ -3,6 +3,7 @@
 const Product = require("./../models/Products")
 const Review = require("./../models/Reviews")
 const dateFormat = require("dateformat")
+const catchAsync = require("./../utils/catchAsync")
 
 // exports.getAllReviews = (req, res) => {
 //     res.send("get all reviews route!")
@@ -13,7 +14,7 @@ const dateFormat = require("dateformat")
 // exports.updateReview = (req, res) => {
 //     res.send("update review route!")
 // }
-exports.createReview = async (req, res) => {
+exports.createReview = catchAsync(async (req, res) => {
     const product = await Product.find({_id: req.params.id})
     const newReview = {
         name: req.user.name,
@@ -28,7 +29,7 @@ exports.createReview = async (req, res) => {
         "status":"success",
         "message":"Reviews submitted successfully"
     })
-}
+})
 // exports.deleteReview = (req, res) => {
 //     res.send("delete review route!")
 // }
