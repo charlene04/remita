@@ -1,0 +1,313 @@
+@charset "utf-8";
+
+@media only screen and (max-width: 479px)
+{
+	.slider
+	{
+		height: calc(100vh - 70px);
+		min-height: auto;
+		margin-top: 70px;
+	}
+	.slider-content h6
+	{
+		margin-bottom: 15px;
+	}
+	.slider-content h1
+	{
+		font-size: 24px;
+	}
+	.shop_now_button
+	{
+		margin-top: 15px;
+		width: 100px;
+		height: 35px;
+	}
+	.red_button a
+	{
+		font-size: 10px;
+	}
+
+	.banner{
+		height: 70vh;
+	}
+	.banner_item
+	{
+		height: calc((100vw - 30px) / 2.6);
+		margin-bottom: 10px;
+		
+	}
+	.grid_sorting_button
+	{
+		font-size: 12px;
+		padding-left: 10px;
+		padding-right: 10px;
+		min-width: 60px;
+		height: 35px;
+	}
+	.product-item
+	{
+		width: 100%;
+		height: auto;
+	}
+	.product
+	{
+		height: auto;
+	}
+	.product_name a
+	{
+		font-size: 12px;
+	}
+	.add_to_cart_button
+	{
+		margin-top: 20px;
+	}
+	.deal_ofthe_week_img
+	{
+		display: none;
+	}
+	.timer
+	{
+		padding-right: 10px;
+		margin-top: 42px;
+		display: flex;
+		justify-content: center;
+	}
+	.timer li
+	{
+		width: 50px;
+		height: 50px;
+	}
+
+	.section_title{
+		padding-right: 25px;
+	}
+
+	.section_title::after
+	{
+	    top: calc(100% + 8px);
+	    height: 3px;
+	}
+	.timer_num
+	{
+		margin-top: 4px;
+		font-size: 16px;
+	}
+	.timer_unit
+	{
+		margin-top: -9px;
+		font-size: 10px;
+	}
+
+	.deal_ofthe_week_col{
+		display: flex;
+		justify-content: center;
+		padding-left: 20px;
+	}
+	.deal_ofthe_week_button
+	{
+		margin-top: 36px;
+		margin-right: 40px;
+	}
+
+	.product_slider_item .product-item
+	{
+		width: 100%;
+		height: auto;
+	}
+	.product_slider_item .product-item:hover::after
+	{
+		box-shadow: none;
+	}
+	.product_slider_item .product-item .product
+	{
+		height: auto;
+	}
+	.product_slider_item .product-item .product_info
+	{
+		padding-bottom: 30px;
+	}
+	.blog_title
+	{
+		font-size: 16px;
+	}
+	.blog_meta
+	{
+		font-size: 10px;
+	}
+	.blog_more
+	{
+		font-size: 12px;
+		margin-top: 5px;
+	}
+	
+}
+
+@media only screen and (min-width: 700px) and (max-width: 990px){
+	h1{font-size: 48px;}
+	h2{font-size: 36px;}
+	.slider-content
+	{
+		padding-top: 10%;
+		width: 70%;
+	}
+	.shop_now_button
+	{
+		margin-top: 26px;
+	}
+	.grid-item
+	{
+		width: 25%;
+	}
+	.top_nav
+	{
+		display: none;
+	}
+	.navbar_menu
+	{
+		display: none;
+	}
+	.hamburger_container
+	{
+		display: block;
+	}
+	.main_slider
+	{
+		margin-top: 100px;
+	}
+	.main_slider_content
+	{
+		width: 100%;
+		padding-right: 15px;
+	}
+	.banner_item
+	{
+		background-position: center;
+		height: 100%;
+	}
+	.banner_category
+	{
+		min-width: 160px;
+		height: 40px;
+	}
+
+	.banner_category a
+	{
+		font-size: 16px;
+		line-height: 40px;
+	}
+	.product-item
+	{
+		width: 25%;
+	}
+	.deal_ofthe_week_col
+	{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+	}
+	.deal_ofthe_week_content
+	{
+		position: relative;
+		top: auto;
+		left: auto;
+		height: auto;
+	}
+	.deal_ofthe_week_img
+	{
+		text-align: center;
+	}
+	.timer li
+	{
+		width: 70px;
+		height: 70px;
+	}
+	.timer_num
+	{
+		font-size: 28px;
+	}
+	.timer_unit
+	{
+		margin-top: 1px;
+		font-size: 14px;
+	}
+	.benefit_col
+	{
+		margin-bottom: 30px;
+	}
+	.benefit_col:last-child
+	{
+		margin-bottom: 0px;
+	}
+	.blog_item_col
+	{
+		margin-bottom: 30px;
+	}
+	.blog_item_col:last-child
+	{
+		margin-bottom: 0px;
+	}
+	.blog_item
+	{
+		height: 440px;
+	}
+	.blog_title
+	{
+		font-size: 24px;
+	}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+
+	.main_slider
+	{
+		min-height: 475px;
+		height: calc(100vw / 1.714);
+	}
+	.main_slider_content
+	{
+		width: 80%;
+	}
+	.banner_item
+	{
+		height: 220px;
+	}
+	.product-item
+	{
+		height: 360px;
+	}
+	.product
+	{
+		height: 320px;
+	}
+	.timer li
+	{
+		width: 90px;
+		height: 90px;
+	}
+	.timer_num
+	{
+		font-size: 36px;
+		font-weight: 500;
+	}
+	.timer_unit
+	{
+		margin-top: 5px;
+	}
+	.blog_title
+	{
+		font-size: 20px;
+	}
+	
+	.blogs_container{
+		display: flex;
+		justify-content:space-evenly;
+		
+	}
+
+	.optional{
+		display: none;
+	}
+}
