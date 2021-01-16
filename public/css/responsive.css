@@ -1,21 +1,24 @@
 @charset "utf-8";
 
+
+
 @media only screen and (max-width: 479px)
 {
+	h1.heading{
+		font-size: 40px!important;
+		
+	}
+	
 	.slider
 	{
 		height: calc(100vh - 70px);
 		min-height: auto;
-		margin-top: 70px;
 	}
 	.slider-content h6
 	{
 		margin-bottom: 15px;
 	}
-	.slider-content h1
-	{
-		font-size: 24px;
-	}
+	
 	.shop_now_button
 	{
 		margin-top: 15px;
@@ -106,7 +109,6 @@
 	.deal_ofthe_week_button
 	{
 		margin-top: 36px;
-		margin-right: 40px;
 	}
 
 	.product_slider_item .product-item
@@ -142,14 +144,22 @@
 	
 }
 
+@media only screen and (max-width: 768px)
+{
+	.sampling{
+		overflow-x: scroll;
+		overflow-y: hidden;
+	}
+}
+
 @media only screen and (min-width: 700px) and (max-width: 990px){
 	h1{font-size: 48px;}
 	h2{font-size: 36px;}
 	.slider-content
 	{
-		padding-top: 10%;
 		width: 70%;
 	}
+	
 	.shop_now_button
 	{
 		margin-top: 26px;
@@ -259,8 +269,25 @@
 	}
 }
 
-@media only screen and (min-width: 992px) and (max-width: 1199px){
+@media only screen and (max-width: 1000px)
+{
+	h1.heading{
+		font-size: 50px!important;
+		width: auto;
+	}
+	.slider-content{
+		padding-left: 10px;
+	}
+}
 
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+	.slider-content{
+		padding-left: 10px;
+	}
+	h1.heading{
+		font-size: 45px!important;
+		width: auto;
+	}
 	.main_slider
 	{
 		min-height: 475px;

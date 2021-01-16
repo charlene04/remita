@@ -33,6 +33,7 @@ a, a:hover, a:visited, a:active, a:link
     height: 80vh;
 	width: 100%;
 	background-position: top;
+	background-repeat: no-repeat;
 }
 
 .slider-content{
@@ -457,6 +458,10 @@ h1.heading{
 .deal_ofthe_week_content
 {
 	height: 100%;
+}
+.deal_ofthe_week_col
+{
+	padding-top: 20px;
 }
 .section_title
 {
