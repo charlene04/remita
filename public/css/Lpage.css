@@ -113,7 +113,8 @@ h1.heading{
     height: 100%;
     background-image :url(../img/banner_1.jpg);
     align-items: center;
-    justify-content: center;
+	justify-content: center;
+	background-repeat: no-repeat;
 }
 
 .banner_item a{

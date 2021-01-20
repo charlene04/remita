@@ -8,7 +8,7 @@ const catchAsync = require("./../utils/catchAsync")
 
 
 exports.getCart = async (req, res) => {
-    res.render('cart.hbs')
+    res.render('cart.hbs', {'title': "Wuse Variety Stores| MyCart"})
 }
 
 exports.cartSummary = catchAsync(async (req, res) => {

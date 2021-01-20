@@ -27,6 +27,10 @@ $('.close-sidebar').click(function(){
     $('.open-sidebar').show('slow');
     
 });
+
+function category(value){
+    location.href = `/shop/category/${value}`
+}
 function shop(){
     location.href = "/shop"
 }

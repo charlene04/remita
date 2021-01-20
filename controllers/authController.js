@@ -69,9 +69,9 @@ exports.logout = async (req, res, next) => {
 
 
 exports.userLoginForm = (req, res) => {
-    res.render('login.hbs')
+    res.render('login.hbs', {'title': "Wuse Variety Stores| Login"})
 }
 
 exports.userSignupForm = (req, res) => {
-    res.render('Register.hbs')
+    res.render('Register.hbs',  {'title': "Wuse Variety Stores| Signup"})
 }

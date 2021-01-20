@@ -4,7 +4,7 @@ const catchAsync = require("./../utils/catchAsync")
 
 exports.getAllUsers = catchAsync(async (req, res) => {
     const users = await User.find()
-    res.render('users.hbs', { 'users': users, 'title': 'Admin Dashboard' })
+    res.render('users.hbs', { 'users': users, 'title': 'Wuse Variety Stores | Admin' })
 })
 
 exports.updateUser = catchAsync(async (req, res) => {

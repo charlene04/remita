@@ -70,10 +70,10 @@ app.post("/email", async (req, res) => {
     const msg = {
 		to: req.body.email,
     	from: 'developmenthub123@gmail.com',
-    	subject: 'Thank you for your patronage - DevCampStores',
+    	subject: 'Thank you for your patronage - WuseVarietyStores',
 		html: `<h4>Hello dear,</h4>
-		<p>We at DevCampStores are glad to have served you well. A staff of ours will reach out to you as regards your order.</p>
-		<p>Here is your ORDER_TOKEN: ${req.body.token}</p><p>We looking forward to serving you better next time</p><br> <em>Warm Regards</em>
+		<p>We at WuseVarietyStores are glad to have served you well. A staff of ours will reach out to you as regards your order.</p>
+		<p>Here is your ORDER_TOKEN: ${req.body.token}</p><p>We look forward to serving you better next time</p><br> <em>Warm Regards</em>
 		`
 	};
 		sgMail.send(msg).then(() => {

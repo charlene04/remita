@@ -18,7 +18,7 @@ const form = formidable({uploadDir: path.join(__dirname, '/../public/uploads/'),
 exports.getAllProducts = catchAsync(async (req, res) => {
     const products = await Product.find()
     const categories = await Category.find()
-    res.render('dashboard.hbs', { 'products': products, 'categories': categories, 'title': 'Admin Dashboard' })
+    res.render('dashboard.hbs', { 'products': products, 'categories': categories, 'title': 'Wuse Variety Stores | Admin' })
 })
 
 

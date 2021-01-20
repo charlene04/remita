@@ -3,7 +3,7 @@ const catchAsync = require("./../utils/catchAsync")
 
 exports.getAllCheckouts = catchAsync(async (req, res) => {
     const carts= await Cart.find()
-    res.render('checkouts.hbs', { 'carts': carts, 'title': 'Admin Dashboard'})
+    res.render('checkouts.hbs', { 'carts': carts, 'title': 'Wuse Variety Stores | Admin'})
 })
 
 exports.getCheckout = catchAsync(async (req, res) => {
