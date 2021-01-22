@@ -3,8 +3,7 @@ const mongoose = require('mongoose')
 const categorySchema = new mongoose.Schema({
     category: { type: String, 
     lowercase: true, 
-    trim: true,
-    unique: true
+    trim: true
     }
 })
 

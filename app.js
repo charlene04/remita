@@ -89,6 +89,8 @@ app.post("/email", async (req, res) => {
 		})
 	})
 
+
+
 const authRouter = require("./routes/authRouter")
 const cartRouter = require("./routes/cartRouter")
 const productRouter = require("./routes/productRouter")
@@ -97,6 +99,7 @@ const checkoutRouter = require("./routes/checkoutRouter")
 const usersRouter = require("./routes/usersRouter")
 const homeRouter = require("./routes/homeRouter")
 const shopRouter = require("./routes/shopRouter")
+const Product = require('./models/Products')
 
 app.use('/my-cart', cartRouter)
 app.use('/auth', authRouter)
