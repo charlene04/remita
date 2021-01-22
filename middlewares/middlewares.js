@@ -6,7 +6,7 @@ exports.restrictTo = (...roles) => {
             req.flash("error", "Unauthorised!")
             return res.redirect('/auth/login')
         }
-        next()
+        return next()
     }
 }
 
@@ -15,6 +15,6 @@ exports.isLoggedIn = (req, res, next) => {
         return next()
     }
     req.flash("error", "Please login")
-    res.redirect('/auth/login')
+    return res.redirect('/auth/login')
     
 }

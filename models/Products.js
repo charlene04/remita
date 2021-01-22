@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Name is required for a new product']
+        required: [true, 'Name is required for a new product'],
     },
     description: {
         type: String, 
@@ -21,7 +21,6 @@ const productSchema = new mongoose.Schema({
         // required: [true, 'Image is required for a new product']
     },
     reviews: [],
-    category: String
     
 })
 
