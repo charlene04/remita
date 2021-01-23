@@ -53,7 +53,6 @@ exports.createProduct = catchAsync( async (req, res, next) => {
     const image = req.files.image
     image.mv(path.join(__dirname, `../public/uploads/${image.name}`), (err) => {
         if(err){
-            console.log(err)
             req.flash('error', 'Something went wrong. Please try again!')
             return res.redirect("back")
         }
@@ -85,7 +84,6 @@ exports.updateProductImage = catchAsync(async (req, res, next) => {
     const image = req.files.image
         image.mv(path.join(__dirname, `../public/uploads/${image.name}`), (err) => {
             if(err){
-                console.log(err)
                 req.flash('error', 'Something went wrong. Please try again!')
                 return res.redirect("back")
             }
