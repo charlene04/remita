@@ -46,14 +46,15 @@ exports.updateProduct = catchAsync(async (req, res) => {
 })
 exports.createProduct = catchAsync( async (req, res, next) => {
     const {name, price, discount, description, category } = req.body
-    if (!name || !price || !category || !description ){
-        req.flash("error", "Please provide all necessary fields");
-        return res.redirect("/admin/products")
-    }
+    // if (!name || !price || !category || !description ){
+    //     req.flash("error", "Please provide all necessary fields");
+    //     return res.redirect("/admin/products")
+    // }
     const image = req.files.image
     image.mv(path.join(__dirname, `../public/uploads/${image.name}`), (err) => {
         if(err){
-            return
+            req.flash('error', 'Something went wrong. Please try again!')
+            return res.redirect("back")
         }
         Product.create({
             name,
@@ -67,7 +68,9 @@ exports.createProduct = catchAsync( async (req, res, next) => {
         req.flash("success", "New Product added successfully")
         res.redirect("/admin/products")          
 
+       
     })
+
              
 })
 
