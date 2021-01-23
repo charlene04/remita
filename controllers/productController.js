@@ -5,8 +5,9 @@ const schedule = require("node-schedule")
 const formidable = require('formidable');
 const path = require("path");
 const catchAsync = require("../utils/catchAsync");
+const fs = require("fs");
 
-const form = formidable({uploadDir: path.join(__dirname, '/../public/uploads/'), keepExtensions:true});
+const form = formidable({uploadDir: path.join(__dirname, '/../public/uploads/'), keepExtensions:true, encoding: 'utf-8'});
 
 // {
 //     encoding: 'utf-8',
@@ -43,47 +44,59 @@ exports.updateProduct = catchAsync(async (req, res) => {
     }
     
 })
+exports.createProduct = catchAsync( async (req, res, next) => {
+    const {name, price, discount, description, category } = req.body
+    if (!name || !price || !category || !description ){
+        req.flash("error", "Please provide all necessary fields");
+        return res.redirect("/admin/products")
+    }
+    const image = req.files.image
+    image.mv(path.join(__dirname, `../public/uploads/${image.name}`), (err) => {
+        if(err){
+            return
+        }
+        Product.create({
+            name,
+            price,
+            discount, 
+            description,
+            category,
+            image: image.name
+        })
+
+        req.flash("success", "New Product added successfully")
+        res.redirect("/admin/products")          
+
+    })
+             
+})
 
 
-exports.createProduct = async (req, res, next) => {
-            const {name, price, discount, description, category } = req.body
-            if (!name || !price || !category || !description ){
-                req.flash("error", "Please provide all necessary fields");
-                return res.redirect("/admin/products")
-            }
-            const newProduct = await Product.create({
-                            name,
-                            price,
-                            discount, 
-                            description,
-                            category,
-                        })
-           
-                req.flash("success", "New Product added successfully")
-                return res.redirect("/admin/products")
-         
-
-}
-
-exports.deleteProduct = catchAsync(async (req, res) => {
+exports.deleteProduct = catchAsync(async (req, res, next) => {
     await Product.findOneAndDelete({ _id: req.params.id })
     res.status(204).json({message: 'Successfully deleted'})    
 })
 
-exports.updateProductImage = async (req, res) => {
-    form.parse(req, async (err, fields, files) => {
-            const patth = files.image.path.split('\\')
-            const updateProduct = await Product.findByIdAndUpdate(req.params.id, {image: patth[patth.length - 1]}, { upsert: false, new: true})
-            if(!updateProduct){
-                req.flash('error', 'Something went wrong. Try again')
-                return res.redirect('back')
+exports.updateProductImage = catchAsync(async (req, res, next) => {
+    const image = req.files.image
+        image.mv(path.join(__dirname, `../public/uploads/${image.name}`), (err) => {
+            if(err){
+                req.flash('error', 'Something went wrong. Please try again!')
+                return res.redirect("back")
             }
-            req.flash('success', 'Product updated successfully')
-            res.redirect('/admin/products')
+            console.log(image.name)
+            Product.findByIdAndUpdate(req.params.id, { $set: {image: image.name} }, {new: true}, (err) => {
+                if(err){
+                    req.flash('error', 'Something went wrong. Please try again!')
+                    return res.redirect("back")
+                }
+                req.flash('success', 'Product updated successfully')
+                res.redirect('/admin/products') 
+            })
+            
+        })
        
-
-    })   
-}
+})
 
 // CATEGORIES AND COUPONS CONTROLLER
 

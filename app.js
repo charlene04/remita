@@ -11,6 +11,8 @@ const session = require("express-session")
 const MongoStore = require("connect-mongo")(session);
 const favicon = require('serve-favicon')
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
+const fileUpload = require("express-fileupload")
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.EMAIL_KEY);
 
@@ -20,7 +22,9 @@ const app = express()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public/')))
-const cookieParser = require("cookie-parser")
+
+
+app.use(fileUpload())
 
 app.use(cookieParser());
 app.use(

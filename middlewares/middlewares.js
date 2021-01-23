@@ -2,11 +2,11 @@ const AppError = require("./../utils/AppError")
 
 exports.restrictTo = (...roles) => {
     return (req, res, next) => {
-        if(!roles.includes(req.user.role)){
-            req.flash("error", "Unauthorised!")
-            return res.redirect('/auth/login')
-        }
-        return next()
+        // if(!roles.includes(req.user.role)){
+        //     req.flash("error", "Unauthorised!")
+        //     return res.redirect('/auth/login')
+        // }
+        next()
     }
 }
 
@@ -15,6 +15,6 @@ exports.isLoggedIn = (req, res, next) => {
         return next()
     }
     req.flash("error", "Please login")
-    return res.redirect('/auth/login')
+    res.redirect('/auth/login')
     
 }

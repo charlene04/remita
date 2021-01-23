@@ -3,7 +3,7 @@
 
 <section id="popup">
     <article>
-        <form action="/admin/products" method="POST" id="addProduct">
+        <form action="/admin/products" method="POST" id="addProduct" enctype="multipart/form-data">
             <h1 class="text-center">New Product</h1>
             <br>
             <div class="row">
@@ -26,31 +26,28 @@
                 <textarea name="description" id="desc" class="w-100" maxlength="200" rows="2"
                     placeholder="Product description" required></textarea>
             </div>
-
+            <div class="form-group">
+                <select class="browser-default custom-select" id="cat" name="category" required>
+                    <option>Select a product category</option>
+                    {{#each categories as |category|}}
+                    <option value="{{ category.category }}">{{ category.category }}</option>
+                    {{/each}}
+                </select>
+            </div>
 
             <div class="row">
-                <div class="col">
-                    <div class="form-group m-0">
-                        <select class="browser-default custom-select" id="cat" name="category" required>
-                            <option>Select a product category</option>
-                            {{#each categories as |category|}}
-                            <option value="{{ category.category }}">{{ category.category }}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                </div>
                 <div class="col">
                     <div class="form-group">
                         <input type="number" name="discount" class="form-control" placeholder="Discount (Optional)"
                             id="discount">
                     </div>
                 </div>
-                {{!-- <div class="col">
+                <div class="col">
                     <div class="form-group">
                         <input type="file" accept=".png, .jpg, .jpeg" class="form-control"
                             placeholder="Upload an image of the product" id="img" name="image" required>
                     </div>
-                </div> --}}
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

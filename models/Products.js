@@ -16,11 +16,10 @@ const productSchema = new mongoose.Schema({
     discount: {
         type: Number, 
         default: 0},
-    image: {
-        type: String
-        // required: [true, 'Image is required for a new product']
-    },
+    image: String,
+       
     reviews: [],
+    category: String
     
 })
 
