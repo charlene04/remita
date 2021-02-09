@@ -80,7 +80,7 @@ function getStorage(){
         num.style.backgroundColor = "red";
         num.textContent = devcampstores.length
     }else{
-        num.style.backgroundColor = "none";
+        num.style.backgroundColor = "transparent";
         num.textContent = '';
     }
 }
