@@ -76,9 +76,12 @@ function getStorage(){
         devcampstores = JSON.parse(localStorage.getItem('devcampstores'));
     }
     if(devcampstores.length > 0){
-        let num = document.getElementById("cart_num")
+        num = document.getElementById("cart_num")
         num.style.backgroundColor = "red";
         num.textContent = devcampstores.length
+    }else{
+        num.style.backgroundColor = "none";
+        num.textContent = '';
     }
 }
 getStorage()
