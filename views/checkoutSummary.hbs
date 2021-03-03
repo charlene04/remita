@@ -104,7 +104,7 @@
                     </div>
                     <div class="openbtw">
                         <p class="flex-start">Discount:</p>
-                        <p class="flex-end">&#8358; {{#if cart}}{{cart.discount}}{{/if}}</p>
+                        <p class="flex-end" id="dis">&#8358; {{#if cart}}{{cart.discount}}{{/if}}</p>
                     </div>
                     <hr class="m-0">
                     <br>
@@ -165,7 +165,8 @@
             success: function (data) {
                 document.getElementById("response").textContent = data.message
                 tot1 = data.data.total
-                tot.textContent = data.data.total
+                document.getElementById("dis").textContent = data.data.dis
+                document.getElementById("totalll").textContent = data.data.total
             },
             error: function () {
 

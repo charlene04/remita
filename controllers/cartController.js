@@ -110,7 +110,8 @@ exports.applyCoupon = catchAsync(async (req, res, next) => {
                 "status": "success",
                 "message": "Coupon applied successfully",
                 data: {
-                    total
+                    total,
+                    'discount': cart.discount
                 }
             })
         })
