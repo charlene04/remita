@@ -19,8 +19,7 @@
                         <li class="grid_sorting_button button d-flex flex-column justify-content-center
                             align-items-center" data-filter=".women" onclick="category('women')">women's</li>
                         <li class="grid_sorting_button button d-flex flex-column justify-content-center
-                            align-items-center" data-filter=".accessories" onclick="category('accessories')">
-                            accessories</li>
+                            align-items-center" data-filter=".accessories" onclick="category('accessories')">accessories</li>
                         <li class="grid_sorting_button button d-flex flex-column justify-content-center
                             align-items-center" data-filter=".men" onclick="category('men')">men's</li>
                     </ul>
@@ -59,7 +58,21 @@
     }
 </style>
 <script>
-
+     var buttons = document.querySelectorAll(".grid_sorting_button")
+    var pathname = window.location.pathname.split('/')
+    var sec = pathname[pathname.length - 1].toLowerCase()
+    buttons.forEach(function(button){
+        console.log(button.textContent)
+        if(button.textContent.toLowerCase().split("'")[0] == sec){
+            button.classList.add("active")
+        }
+        else if(sec == 'shop' && button.textContent == 'all'){
+            button.classList.add("active")
+        }
+        else{
+            button.classList.remove("active")
+        }
+    })
     document.getElementById("cart_icon").addEventListener('click', function (event) {
         if (event.currentTarget !== event.target) {
             return;
